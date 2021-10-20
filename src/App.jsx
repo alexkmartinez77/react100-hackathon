@@ -12,12 +12,19 @@ class App extends Component {
       needInfo: true,
       
     };
+    this.closePage = this.closePage.bind(this);
+  }
+
+  closePage(page){
+    this.setState({
+      [page]: false,
+    })
   }
 
   render() {
     return (
       <div className="container">
-        {this.state.firstTime ? <Welcome /> : this.state.needInfo ? <Form/> : <ManageCalories/>}
+        {this.state.firstTime ? <Welcome closePage={this.closePage}/> : this.state.needInfo ? <Form/> : <ManageCalories/>}
       </div>
     );
   }
