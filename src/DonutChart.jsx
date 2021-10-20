@@ -7,9 +7,10 @@ export class DonutChart extends Component {
     super(props);
 
     this.state = {
-      options: {},
-      series: [20, 20, 20, 20, 20],
-      labels: ['A', 'B', 'C', 'D', 'E']
+      options: {
+        labels: ['Carbs', 'Protein', 'Fats']
+      },
+      series: [55, 35, 10],
     }
   }
 
