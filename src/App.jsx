@@ -1,18 +1,23 @@
 import React, { Component } from "react";
-import DonutChart from './DonutChart';
+import Welcome from './Welcome';
+import Form from './Form';
+import ManageCalories from './ManageCalories';
 
-export class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      firstTime: true,
+      needInfo: true,
+      
     };
   }
 
   render() {
     return (
-      <div >
-        <DonutChart />
+      <div className="container">
+        {this.state.firstTime ? <Welcome /> : this.state.needInfo ? <Form/> : <ManageCalories/>}
       </div>
     );
   }
