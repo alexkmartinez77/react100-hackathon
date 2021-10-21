@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Welcome from './Welcome';
 import Form from './Form';
-import ManageCalories from './ManageCalories';
 import bmrFx from './bmrFx.js';
+import DonutChart from "./DonutChart";
 
 class App extends Component {
   constructor(props) {
@@ -11,16 +11,18 @@ class App extends Component {
     this.state = {
       firstTime: true,
       needInfo: true,
+      needToIntroduceChart: false,
       userProfile: {
-        age: 0,
-        feet: 0,
-        inches: 0,
-        weight: 0,
+        age: 43,
+        feet: 6,
+        inches: 3,
+        weight: 200,
         gender: 'male',
-        goals: 'maintain',
+        goals: 'maintenance',
         bmr: 0,
         caloricNeeds:0,
         caloricGoals:0,
+
       },
       activityLevel: [
         {level: 'sedentary', factor: 1.2},
@@ -66,9 +68,20 @@ class App extends Component {
   }
 
   render() {
+    let total = this.state.userProfile.caloricGoals;
+    let eaten = 1200;
+    let consumed = parseFloat((eaten/total*100).toFixed(0));
+    let leftOver = 100 - consumed;
+
+    let array = [consumed, leftOver];
+
     return (
       <div className="container">
-        {this.state.firstTime ? <Welcome closePage={this.closePage}/> : this.state.needInfo ? <Form closePage={this.closePage} handleInput={this.handleInput} calculateCalories={this.calculateCalories}/> : <ManageCalories userProfile={this.state.userProfile}/>}
+        {this.state.firstTime ? 
+        <Welcome closePage={this.closePage}/> : 
+        this.state.needInfo ? 
+        <Form closePage={this.closePage} handleInput={this.handleInput} calculateCalories={this.calculateCalories}/> :
+        <DonutChart array={array}/>}
       </div>
     );
   }

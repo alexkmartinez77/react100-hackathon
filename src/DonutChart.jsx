@@ -8,10 +8,10 @@ export class DonutChart extends Component {
 
     this.state = {
       options: {
-        labels: ['Feast', 'Fast'],
+        labels: ['Consumed', 'Left Over'],
         colors: ['#339933', '#cc0000'],
         title: {
-          text: 'Eating Window',
+          text: 'Calories',
           align: 'center',
           style: {
             fontSize: '30px',
@@ -19,8 +19,8 @@ export class DonutChart extends Component {
         },
         plotOptions: {
           pie: {
-            startAngle:210,
-            endAngle: 570,
+            startAngle:0,
+            endAngle: 360,
             expandOnClick: false,
             dataLabels: {
               offset: 0,
@@ -38,7 +38,7 @@ export class DonutChart extends Component {
           }
         },
         dataLabels: {
-          enabled: false,
+          enabled: true,
         }
       },
       series: [8,16],
@@ -46,10 +46,10 @@ export class DonutChart extends Component {
   }
 
   render() {
-
+    
     return (
       <div className="donut">
-        <Chart options={this.state.options} series={this.state.series} type="donut" width="380" />
+        <Chart options={this.state.options} series={this.props.array} type="donut" width="380" />
       </div>
     );
   }
