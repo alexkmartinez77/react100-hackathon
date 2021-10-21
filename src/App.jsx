@@ -3,6 +3,7 @@ import Welcome from './Welcome';
 import Form from './Form';
 import bmrFx from './bmrFx.js';
 import DonutChart from "./DonutChart";
+import ChartIntro from "./ChartIntro";
 
 class App extends Component {
   constructor(props) {
@@ -39,8 +40,9 @@ class App extends Component {
   }
 
   closePage(page){
+    console.log(page);
     this.setState({
-      [page]: false,
+      [page]: !this.state[page],
     })
   }
 
@@ -68,6 +70,12 @@ class App extends Component {
   }
 
   render() {
+    
+    let chartIntro;
+    if(this.state.needToIntroduceChart) {
+      chartIntro = <ChartIntro goals={this.state.userProfile.goals} caloricGoals={this.state.userProfile.caloricGoals}/>
+    }
+
     let total = this.state.userProfile.caloricGoals;
     let eaten = 1200;
     let consumed = parseFloat((eaten/total*100).toFixed(0));
@@ -77,11 +85,15 @@ class App extends Component {
 
     return (
       <div className="container">
-        {this.state.firstTime ? 
-        <Welcome closePage={this.closePage}/> : 
-        this.state.needInfo ? 
-        <Form closePage={this.closePage} handleInput={this.handleInput} calculateCalories={this.calculateCalories}/> :
-        <DonutChart array={array}/>}
+        { 
+          this.state.firstTime 
+          ? <Welcome closePage={this.closePage}/> 
+          : this.state.needInfo 
+          ? <Form closePage={this.closePage} handleInput={this.handleInput} calculateCalories={this.calculateCalories}/> 
+          : <DonutChart array={array}/>
+        }
+        {chartIntro}
+
       </div>
     );
   }

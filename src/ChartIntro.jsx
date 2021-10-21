@@ -9,7 +9,7 @@ class ChartIntro extends Component {
             for your {this.props.goals} goals. The chart above will keep track of the calories you have
             consumed {`(red bar)`} vs calories you have left {`(green bar)`} to eat for the day.
         </p>
-        <p><a onclick={}>Start logging</a> your calories.</p>
+        <p><a>Start logging</a> your calories.</p>
       </React.Fragment>
     )
   }
