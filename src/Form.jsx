@@ -8,11 +8,11 @@ class Form extends Component {
         <form action="#">
           <div onChange={(e) => this.props.handleInput(e)}>
             <label>
-              <input className="with-gap" name="gender" value="Male" type="radio" />
+              <input className="with-gap" name="gender" value="male" type="radio" />
               <span>Male</span>
             </label>
             <label>
-              <input className="with-gap" name="gender" value="Female" type="radio" />
+              <input className="with-gap" name="gender" value="female" type="radio" />
               <span>Female</span>
             </label>
           </div>
@@ -30,11 +30,11 @@ class Form extends Component {
 
           <div onChange={(e) => this.props.handleInput(e)}>
             <label>
-              <input className="with-gap" name="goals" value="Maintenance" type="radio" />
+              <input className="with-gap" name="goals" value="maintenance" type="radio" />
               <span>Maintenance</span>
             </label>
             <label>
-              <input className="with-gap" name="goals" value="Weight Loss" type="radio" />
+              <input className="with-gap" name="goals" value="weight loss" type="radio" />
               <span>Weight Loss</span>
             </label>
           </div>

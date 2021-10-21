@@ -1,9 +1,12 @@
 import React, {Component} from "react";
+import DonutChart from "./DonutChart";
 
 class ManageCalories extends Component {
   render() {
     return (
-      <div>Manage Calories Page</div>
+      <div>
+        <DonutChart userProfile={this.props.userProfile}/>
+      </div>
     )
   }
 }
