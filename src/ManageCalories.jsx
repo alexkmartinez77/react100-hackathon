@@ -3,7 +3,7 @@ import React, {Component} from "react";
 class ManageCalories extends Component {
   render() {
     return (
-      <div>Welcome Page</div>
+      <div>Manage Calories Page</div>
     )
   }
 }
