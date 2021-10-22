@@ -39,7 +39,6 @@ class App extends Component {
   }
 
   closePage(page){
-    console.log(page);
     this.setState({
       [page]: !this.state[page],
     })
@@ -92,6 +91,9 @@ class App extends Component {
           : <DonutChart array={array}/>
         }
         {chartIntro}
+        <div>
+          
+        </div>
 
       </div>
     );
