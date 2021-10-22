@@ -23,7 +23,6 @@ class App extends Component {
         bmr: 0,
         caloricNeeds:0,
         caloricGoals:0,
-
       },
       activityLevel: [
         {level: 'sedentary', factor: 1.2},
@@ -70,10 +69,10 @@ class App extends Component {
   }
 
   render() {
-    
+
     let chartIntro;
     if(this.state.needToIntroduceChart) {
-      chartIntro = <ChartIntro goals={this.state.userProfile.goals} caloricGoals={this.state.userProfile.caloricGoals}/>
+      chartIntro = <ChartIntro closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userProfile.caloricGoals}/>
     }
 
     let total = this.state.userProfile.caloricGoals;
