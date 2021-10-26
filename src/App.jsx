@@ -4,6 +4,8 @@ import Form from './Form';
 import bmrFx from './bmrFx.js';
 import DonutChart from "./DonutChart";
 import ChartIntro from "./ChartIntro";
+import RadialChart from "./RadialChart";
+import RadialBar from "./RadialBar";
 
 class App extends Component {
   constructor(props) {
@@ -83,7 +85,7 @@ class App extends Component {
 
     return (
       <div className="container">
-        { 
+        {
           this.state.firstTime 
           ? <Welcome closePage={this.closePage}/> 
           : this.state.needInfo 
@@ -91,10 +93,10 @@ class App extends Component {
           : <DonutChart array={array}/>
         }
         {chartIntro}
-        <div>
-          
+        <div id="app">
+        <RadialChart leftOver={[leftOver]}/>
+        <RadialBar leftOver={[leftOver]}/>
         </div>
-
       </div>
     );
   }

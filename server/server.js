@@ -4,8 +4,6 @@ const axios = require('axios');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 
-const app = express();
-
 //app proxy server
 const app = express();
 
