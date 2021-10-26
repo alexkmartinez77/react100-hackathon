@@ -18,8 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
 //gather nutrient info
-app.get('/nutrients/:foodItem', (req, res) => {
-    
+app.get('/nutrients/:foodItem', function(req,res) {
+
     nutrientQuery = {
         'query': req.params.foodItem,
     };
@@ -36,13 +36,12 @@ app.get('/nutrients/:foodItem', (req, res) => {
         data: nutrientQuery,
       })
     .then((result) => {
-        res.json(result.data.foods[0]);
+        res.status(200).send(result.data.foods[0]);
     })
     .catch((error) => {
         console.error(error);
         res.send('An error occured.');
     })
-
 });
 
 //gather excercise info

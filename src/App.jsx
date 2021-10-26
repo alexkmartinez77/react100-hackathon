@@ -5,7 +5,7 @@ import bmrFx from './bmrFx.js';
 import ChartIntro from "./ChartIntro";
 import RadialChart from "./RadialChart";
 import CaloriesIn from "./CaloriesIn";
-import Axios from "axios";
+import axios from "axios";
 
 class App extends Component {
   constructor(props) {
@@ -77,9 +77,13 @@ class App extends Component {
   calculateCaloriesIn(){
     let objCopy = JSON.parse(JSON.stringify(this.state.userProfile));
 
-    console.log(objCopy.foodItem);
-    Axios.get(`/nutrients/${objCopy.foodItem}`)
-         .next()
+    axios.get(`/nutrients/${objCopy.foodItem}`)
+         .then((result) => {
+           console.log(result)
+          })
+         .catch((error) => {
+            console.error(error);
+          })
   } 
 
   render() {
@@ -108,7 +112,6 @@ class App extends Component {
         }
         {chartIntro}
         {caloriesIn}
-
       </div>
     );
   }
