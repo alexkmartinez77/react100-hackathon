@@ -20,11 +20,6 @@ app.use(bodyParser.raw());
 //gather nutrient info
 app.get('/nutrients', (req, res) => {
 
-    const nutrientQuery = {
-            "query":"hamburger",
-            "timezone": "US/Eastern"
-    }
-
     axios({
         method: 'post',
         url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
@@ -48,14 +43,6 @@ app.get('/nutrients', (req, res) => {
 
 //gather excercise info
 app.get('/exercise', (req, res) => {
-
-    const exerciseQuery = {
-        "query":"ran 3 miles",
-        "gender":"female",
-        "weight_kg":72.5,
-        "height_cm":167.64,
-        "age":30
-       }
 
     axios({
         method: 'post',
