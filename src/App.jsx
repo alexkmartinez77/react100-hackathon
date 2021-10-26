@@ -5,6 +5,7 @@ import bmrFx from './bmrFx.js';
 import ChartIntro from "./ChartIntro";
 import RadialChart from "./RadialChart";
 import CaloriesIn from "./CaloriesIn";
+import Axios from "axios";
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class App extends Component {
         caloriesIn:0,
         caloriesOut:0,
         caloriesRemain:0,
+        foodItem: 'food',
       },
       activityLevel: [
         {level: 'sedentary', factor: 1.2},
@@ -40,6 +42,7 @@ class App extends Component {
     this.closePage = this.closePage.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.calculateCalories = this.calculateCalories.bind(this);
+    this.calculateCaloriesIn = this.calculateCaloriesIn.bind(this);
   }
 
   closePage(page){
@@ -71,6 +74,14 @@ class App extends Component {
     })
   }
 
+  calculateCaloriesIn(){
+    let objCopy = JSON.parse(JSON.stringify(this.state.userProfile));
+
+    console.log(objCopy.foodItem);
+    Axios.get(`/nutrients/${objCopy.foodItem}`)
+         .next()
+  } 
+
   render() {
 
     let chartIntro, caloriesIn;
@@ -78,7 +89,7 @@ class App extends Component {
       chartIntro = <ChartIntro closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userProfile.caloricGoals}/>
     }
     if(this.state.needCaloriesIn) {
-      caloriesIn = <CaloriesIn handleInput={this.handleInput}/>;
+      caloriesIn = <CaloriesIn handleInput={this.handleInput} calculateCaloriesIn={this.calculateCaloriesIn}/>;
     }
 
     let total = this.state.userProfile.caloricGoals;

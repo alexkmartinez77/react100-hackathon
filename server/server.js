@@ -18,11 +18,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.raw());
 
 //gather nutrient info
-app.get('/nutrients', (req, res) => {
-
+app.get('/nutrients/:foodItem', (req, res) => {
+    
+    nutrientQuery = {
+        'query': req.params.foodItem,
+    };
+   
     axios({
         method: 'post',
-        url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
+        url: 'https://trackapi.nutritionix.com/v2/natural/nutrients/',
         headers: {
         'Content-Type': 'application/json',
         'x-app-id': process.env.API_ID,
