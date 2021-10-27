@@ -1,11 +1,13 @@
+import axios from "axios";
+//Calculates Basal Metabolic Rate (BMR)
+import bmrFx from './bmrFx.js';
+//React Components
 import React, { Component } from "react";
 import Welcome from './Welcome';
 import Form from './Form';
-import bmrFx from './bmrFx.js';
 import ChartIntro from "./ChartIntro";
 import RadialChart from "./RadialChart";
 import CaloriesIn from "./CaloriesIn";
-import axios from "axios";
 import DisplayFoodItemNutrition from "./DisplayFoodItemNutrition";
 
 class App extends Component {
@@ -13,6 +15,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      //create switch object
       firstTime: true,
       needInfo: true,
       needToIntroduceChart: false,
@@ -120,10 +123,7 @@ class App extends Component {
       foodItemNutrition = <DisplayFoodItemNutrition foodItemData={this.state.foodItemData}/>;
     }
 
-    let total = this.state.userProfile.caloricGoals;
-    let eaten = 1200;
-    let consumed = parseFloat((eaten/total*100).toFixed(0));
-    let leftOver = 100 - consumed;
+    let percent = (this.state.userProfile.caloriesRemain/this.state.userProfile.caloricGoals)*100;
 
     return (
       <div className="container">
@@ -132,7 +132,7 @@ class App extends Component {
           ? <Welcome closePage={this.closePage}/> 
           : this.state.needInfo 
           ? <Form closePage={this.closePage} handleInput={this.handleInput} calculateCalorieNeeds={this.calculateCalorieNeeds}/> 
-          : <RadialChart leftOver={[leftOver]}/>
+          : <RadialChart leftOver={[percent]}/>
         }
         {chartIntro}
         {caloriesIn}
