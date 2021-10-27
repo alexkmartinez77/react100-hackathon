@@ -31,6 +31,8 @@ class App extends Component {
         caloriesRemain:0,
         foodItem: 'food',
       },
+      foodItemData:{},
+      dailyFoodLog: [],
       activityLevel: [
         {level: 'sedentary', factor: 1.2},
         {level: 'lightly active', factor: 1.375},
@@ -43,6 +45,7 @@ class App extends Component {
     this.handleInput = this.handleInput.bind(this);
     this.calculateCalories = this.calculateCalories.bind(this);
     this.calculateCaloriesIn = this.calculateCaloriesIn.bind(this);
+    this.logFoodItem = this.logFoodItem.bind(this);
   }
 
   closePage(page){
@@ -79,12 +82,28 @@ class App extends Component {
 
     axios.get(`/nutrients/${objCopy.foodItem}`)
          .then((result) => {
-           console.log(result)
+           console.log(result);
+           this.setState({
+              foodItemData:{
+                name: result.data.food_name,
+                calories: result.data.nf_calories,
+                protein: result.data.nf_protein,
+                fat: result.data.nf_total_fat,
+                carbs: result.data.nf_total_carbohydrate,
+              }
+           })
           })
          .catch((error) => {
             console.error(error);
-          })
+          })   
   } 
+
+  logFoodItem(){
+    let newArray = this.state.dailyFoodLog.concat(this.state.foodItemData);
+    this.setState({
+      dailyFoodLog: newArray,
+    })
+  }
 
   render() {
 
@@ -93,7 +112,7 @@ class App extends Component {
       chartIntro = <ChartIntro closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userProfile.caloricGoals}/>
     }
     if(this.state.needCaloriesIn) {
-      caloriesIn = <CaloriesIn handleInput={this.handleInput} calculateCaloriesIn={this.calculateCaloriesIn}/>;
+      caloriesIn = <CaloriesIn handleInput={this.handleInput} calculateCaloriesIn={this.calculateCaloriesIn} logFoodItem={this.logFoodItem}/>;
     }
 
     let total = this.state.userProfile.caloricGoals;
