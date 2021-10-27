@@ -39,7 +39,7 @@ class Form extends Component {
             </label>
           </div>
         </form>
-        <button className="waves-effect waves-light btn" onClick={() => {this.props.closePage('needInfo'); this.props.closePage('needToIntroduceChart'); this.props.calculateCalories()}}>Proceed</button>
+        <button className="waves-effect waves-light btn" onClick={() => {this.props.closePage('needInfo'); this.props.closePage('needToIntroduceChart'); this.props.calculateCalorieNeeds()}}>Proceed</button>
       </React.Fragment>
     )
   }
