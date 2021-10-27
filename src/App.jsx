@@ -6,6 +6,7 @@ import ChartIntro from "./ChartIntro";
 import RadialChart from "./RadialChart";
 import CaloriesIn from "./CaloriesIn";
 import axios from "axios";
+import DisplayFoodItemNutrition from "./DisplayFoodItemNutrition";
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class App extends Component {
       needInfo: true,
       needToIntroduceChart: false,
       needCaloriesIn:false,
+      needFoodData:false,
       userProfile: {
         age: 43,
         feet: 6,
@@ -43,8 +45,8 @@ class App extends Component {
       };
     this.closePage = this.closePage.bind(this);
     this.handleInput = this.handleInput.bind(this);
-    this.calculateCalories = this.calculateCalories.bind(this);
-    this.calculateCaloriesIn = this.calculateCaloriesIn.bind(this);
+    this.calculateCalorieNeeds = this.calculateCalorieNeeds.bind(this);
+    this.getNutritionData = this.getNutritionData.bind(this);
     this.logFoodItem = this.logFoodItem.bind(this);
   }
 
@@ -64,7 +66,7 @@ class App extends Component {
     })
   }
 
-  calculateCalories(){
+  calculateCalorieNeeds(){
     let objCopy = JSON.parse(JSON.stringify(this.state.userProfile));
     let {age, feet, inches, weight, gender, goals} = objCopy;
 
@@ -77,7 +79,7 @@ class App extends Component {
     })
   }
 
-  calculateCaloriesIn(){
+  getNutritionData(){
     let objCopy = JSON.parse(JSON.stringify(this.state.userProfile));
 
     axios.get(`/nutrients/${objCopy.foodItem}`)
@@ -89,7 +91,7 @@ class App extends Component {
                 calories: result.data.nf_calories,
                 protein: result.data.nf_protein,
                 fat: result.data.nf_total_fat,
-                carbs: result.data.nf_total_carbohydrate,
+                carbohydrate: result.data.nf_total_carbohydrate,
               }
            })
           })
@@ -107,12 +109,15 @@ class App extends Component {
 
   render() {
 
-    let chartIntro, caloriesIn;
+    let chartIntro, caloriesIn, foodItemNutrition;
     if(this.state.needToIntroduceChart) {
       chartIntro = <ChartIntro closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userProfile.caloricGoals}/>
     }
     if(this.state.needCaloriesIn) {
-      caloriesIn = <CaloriesIn handleInput={this.handleInput} calculateCaloriesIn={this.calculateCaloriesIn} logFoodItem={this.logFoodItem}/>;
+      caloriesIn = <CaloriesIn closePage={this.closePage} handleInput={this.handleInput} getNutritionData={this.getNutritionData} logFoodItem={this.logFoodItem}/>;
+    }
+    if(this.state.needFoodData) {
+      foodItemNutrition = <DisplayFoodItemNutrition foodItemData={this.state.foodItemData}/>;
     }
 
     let total = this.state.userProfile.caloricGoals;
@@ -126,11 +131,12 @@ class App extends Component {
           this.state.firstTime 
           ? <Welcome closePage={this.closePage}/> 
           : this.state.needInfo 
-          ? <Form closePage={this.closePage} handleInput={this.handleInput} calculateCalories={this.calculateCalories}/> 
+          ? <Form closePage={this.closePage} handleInput={this.handleInput} calculateCalorieNeeds={this.calculateCalorieNeeds}/> 
           : <RadialChart leftOver={[leftOver]}/>
         }
         {chartIntro}
         {caloriesIn}
+        {foodItemNutrition}
       </div>
     );
   }

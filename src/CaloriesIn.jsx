@@ -5,14 +5,11 @@ class CaloriesIn extends Component {
     return (
       <React.Fragment>
         <form action="#">
-
           <label htmlFor="footItem">Calories In</label>
           <input name="foodItem" type="text" placeholder="Enter Food Item" onChange={(e) => this.props.handleInput(e)}/>
-
         </form>
-        <button className="waves-effect waves-light btn" onClick={() => {this.props.calculateCaloriesIn()}}>Calculate</button>
+        <button className="waves-effect waves-light btn" onClick={() => {this.props.getNutritionData(), this.props.closePage('needFoodData')}}>Calculate</button>
         <button className="waves-effect waves-light btn" onClick={() => {this.props.logFoodItem()}}>Log</button>
-
       </React.Fragment>
     )
   }
