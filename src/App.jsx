@@ -31,26 +31,28 @@ class App extends Component {
         bmr: 0,
         caloricNeeds:0,
         caloricGoals:0,
-        caloriesIn:0,
-        caloriesOut:0,
         caloriesRemain:0,
         foodItem: 'food',
       },
-      foodItemData:{},
-      dailyFoodLog: [],
-      activityLevel: [
-        {level: 'sedentary', factor: 1.2},
-        {level: 'lightly active', factor: 1.375},
-        {level: 'moderately active', factor: 1.55},
-        {level: 'very active', factor: 1.725},
-        {level: 'extra active', factor: 1.9},
-        ]
-      };
+      userCalories:{
+        caloriesIn:{
+          total: 0,
+          item:{},
+          array:[],
+        },
+        caloriesOut:{
+          total: 0,
+          item:{},
+          array:[],
+        },
+      }
+    };
     this.closePage = this.closePage.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.calculateCalorieNeeds = this.calculateCalorieNeeds.bind(this);
     this.getNutritionData = this.getNutritionData.bind(this);
-    this.logFoodItem = this.logFoodItem.bind(this);
+    this.logCaloriesIn = this.logCaloriesIn.bind(this);
+    this.calculateCaloriesIn = this.calculateCaloriesIn.bind(this);
   }
 
   closePage(page){
@@ -84,31 +86,49 @@ class App extends Component {
 
   getNutritionData(){
     let objCopy = JSON.parse(JSON.stringify(this.state.userProfile));
+    let userCaloriesCopy = JSON.parse(JSON.stringify(this.state.userCalories))
 
     axios.get(`/nutrients/${objCopy.foodItem}`)
          .then((result) => {
-           console.log(result);
+            userCaloriesCopy.caloriesIn.item = {
+              name: result.data.food_name,
+              calories: result.data.nf_calories,
+              protein: result.data.nf_protein,
+              fat: result.data.nf_total_fat,
+              carbohydrate: result.data.nf_total_carbohydrate,
+          }
            this.setState({
-              foodItemData:{
-                name: result.data.food_name,
-                calories: result.data.nf_calories,
-                protein: result.data.nf_protein,
-                fat: result.data.nf_total_fat,
-                carbohydrate: result.data.nf_total_carbohydrate,
-              }
+              userCalories: userCaloriesCopy,
            })
           })
          .catch((error) => {
             console.error(error);
           })   
+          
   } 
 
-  logFoodItem(){
-    let newArray = this.state.dailyFoodLog.concat(this.state.foodItemData);
-    this.setState({
-      dailyFoodLog: newArray,
+  calculateCaloriesIn(){
+    let userCaloriesCopy = JSON.parse(JSON.stringify(this.state.userCalories));
+    let totalCaloriesIn = 0;
+    userCaloriesCopy.caloriesIn.array.map(calorieInItem =>{
+      totalCaloriesIn += calorieInItem.calories;
     })
+    userCaloriesCopy.caloriesIn.total = totalCaloriesIn;
+    console.log(userCaloriesCopy.caloriesIn.total);
+    this.setState({
+      userCalories: userCaloriesCopy,
+    });
   }
+
+  logCaloriesIn(){
+    let userCaloriesCopy = JSON.parse(JSON.stringify(this.state.userCalories));
+    let newArray = userCaloriesCopy.caloriesIn.array.concat(this.state.userCalories.caloriesIn.item);
+    userCaloriesCopy.caloriesIn.array = newArray;
+    this.setState({
+      userCalories: userCaloriesCopy,
+      });
+  }
+
 
   render() {
 
@@ -117,10 +137,10 @@ class App extends Component {
       chartIntro = <ChartIntro closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userProfile.caloricGoals}/>
     }
     if(this.state.needCaloriesIn) {
-      caloriesIn = <CaloriesIn closePage={this.closePage} handleInput={this.handleInput} getNutritionData={this.getNutritionData} logFoodItem={this.logFoodItem}/>;
+      caloriesIn = <CaloriesIn closePage={this.closePage} handleInput={this.handleInput} getNutritionData={this.getNutritionData}/>;
     }
     if(this.state.needFoodData) {
-      foodItemNutrition = <DisplayFoodItemNutrition foodItemData={this.state.foodItemData}/>;
+      foodItemNutrition = <DisplayFoodItemNutrition closePage={this.closePage} caloriesInItem={this.state.userCalories.caloriesIn.item} logCaloriesIn={this.logCaloriesIn}/>;
     }
 
     let percent = (this.state.userProfile.caloriesRemain/this.state.userProfile.caloricGoals)*100;
