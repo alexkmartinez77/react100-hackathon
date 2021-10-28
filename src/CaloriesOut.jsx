@@ -5,9 +5,9 @@ class CaloriesIn extends Component {
     return (
       <React.Fragment>
         <form action="#">
-          <p>Total Calories In: {this.props.caloriesInTotal}</p>
-          <label htmlFor="footItem">Enter Food Item</label>
-          <input name="foodItem" type="text" placeholder="ex. Steak Burrito" onChange={(e) => this.props.handleInput(e)}/>
+          <p>Total Calories Out: {this.props.caloriesOutTotal}</p>
+          <label htmlFor="exerciseItem">Enter Exercise Activity</label>
+          <input name="exerciseItem" type="text" placeholder="ex. 20 min walking" onChange={(e) => this.props.handleInput(e)}/>
         </form>
         <button className="waves-effect waves-light btn" onClick={() => {this.props.getNutritionData(), this.props.closePage('needFoodData')}}>Calculate</button>
       </React.Fragment>
