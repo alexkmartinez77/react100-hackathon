@@ -1,6 +1,7 @@
 import axios from "axios";
-//Calculates Basal Metabolic Rate (BMR)
-import bmrFx from './bmrFx.js';
+//Helper functions
+import calculateCalorieTotal from "./calculateCalorieTotal.js";
+import calculateCalorieProfile from "./calculateCalorieProfile";
 //React Components
 import React, { Component } from "react";
 import Welcome from './Welcome';
@@ -28,13 +29,16 @@ class App extends Component {
         weight: 200,
         gender: 'male',
         goals: 'maintenance',
-        bmr: 0,
-        caloricNeeds:0,
-        caloricGoals:0,
-        caloriesRemain:0,
         foodItem: 'food',
       },
       userCalories:{
+        calorieProfile:{
+          bmr: 0,
+          caloricNeeds:0,
+          caloricGoals:0,
+          caloriesRemaining:0,
+          percentRemaining:0,
+        },
         caloriesIn:{
           total: 0,
           item:{},
@@ -45,14 +49,14 @@ class App extends Component {
           item:{},
           array:[],
         },
-      }
+      },
+      foodItem:'food',
     };
     this.closePage = this.closePage.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.calculateCalorieNeeds = this.calculateCalorieNeeds.bind(this);
     this.getNutritionData = this.getNutritionData.bind(this);
     this.logCaloriesIn = this.logCaloriesIn.bind(this);
-    this.calculateCaloriesIn = this.calculateCaloriesIn.bind(this);
   }
 
   closePage(page){
@@ -72,15 +76,13 @@ class App extends Component {
   }
 
   calculateCalorieNeeds(){
-    let objCopy = JSON.parse(JSON.stringify(this.state.userProfile));
-    let {age, feet, inches, weight, gender, goals} = objCopy;
+    let userProfileCopy = JSON.parse(JSON.stringify(this.state.userProfile));
+    let userCalorieProfile = calculateCalorieProfile(userProfileCopy);
+    let userCaloriesCopy = JSON.parse(JSON.stringify(this.state.userCalories));
+    userCaloriesCopy.calorieProfile = userCalorieProfile;
 
-    objCopy.bmr = bmrFx(gender, parseFloat(feet) * 12 + parseFloat(inches), parseFloat(weight), parseFloat(age));
-    objCopy.caloricNeeds = parseFloat((objCopy.bmr * 1.2).toFixed(0));
-    objCopy.caloricGoals = (goals == 'weight loss') ? objCopy.caloricNeeds - 500 : objCopy.caloricNeeds;
-    objCopy.caloriesRemain = objCopy.caloricGoals;
     this.setState({
-      userProfile: objCopy,
+      userCalories: userCaloriesCopy,
     })
   }
 
@@ -107,23 +109,14 @@ class App extends Component {
           
   } 
 
-  calculateCaloriesIn(){
-    let userCaloriesCopy = JSON.parse(JSON.stringify(this.state.userCalories));
-    let totalCaloriesIn = 0;
-    userCaloriesCopy.caloriesIn.array.map(calorieInItem =>{
-      totalCaloriesIn += calorieInItem.calories;
-    })
-    userCaloriesCopy.caloriesIn.total = totalCaloriesIn;
-    console.log(userCaloriesCopy.caloriesIn.total);
-    this.setState({
-      userCalories: userCaloriesCopy,
-    });
-  }
-
   logCaloriesIn(){
     let userCaloriesCopy = JSON.parse(JSON.stringify(this.state.userCalories));
     let newArray = userCaloriesCopy.caloriesIn.array.concat(this.state.userCalories.caloriesIn.item);
+    let calorieTotal = parseFloat((calculateCalorieTotal(newArray)).toFixed(2));
     userCaloriesCopy.caloriesIn.array = newArray;
+    userCaloriesCopy.caloriesIn.total = calorieTotal;
+    userCaloriesCopy.calorieProfile.caloriesRemaining = userCaloriesCopy.calorieProfile.caloricGoals - calorieTotal;
+    userCaloriesCopy.calorieProfile.percentRemaining = parseFloat((userCaloriesCopy.calorieProfile.caloriesRemaining/userCaloriesCopy.calorieProfile.caloricGoals*100).toFixed(0));
     this.setState({
       userCalories: userCaloriesCopy,
       });
@@ -134,7 +127,7 @@ class App extends Component {
 
     let chartIntro, caloriesIn, foodItemNutrition;
     if(this.state.needToIntroduceChart) {
-      chartIntro = <ChartIntro closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userProfile.caloricGoals}/>
+      chartIntro = <ChartIntro closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userCalories.calorieProfile.caloricGoals}/>
     }
     if(this.state.needCaloriesIn) {
       caloriesIn = <CaloriesIn closePage={this.closePage} handleInput={this.handleInput} getNutritionData={this.getNutritionData}/>;
@@ -143,8 +136,6 @@ class App extends Component {
       foodItemNutrition = <DisplayFoodItemNutrition closePage={this.closePage} caloriesInItem={this.state.userCalories.caloriesIn.item} logCaloriesIn={this.logCaloriesIn}/>;
     }
 
-    let percent = (this.state.userProfile.caloriesRemain/this.state.userProfile.caloricGoals)*100;
-
     return (
       <div className="container">
         {
@@ -152,7 +143,7 @@ class App extends Component {
           ? <Welcome closePage={this.closePage}/> 
           : this.state.needInfo 
           ? <Form closePage={this.closePage} handleInput={this.handleInput} calculateCalorieNeeds={this.calculateCalorieNeeds}/> 
-          : <RadialChart leftOver={[percent]}/>
+          : <RadialChart leftOver={[this.state.userCalories.calorieProfile.percentRemaining]}/>
         }
         {chartIntro}
         {caloriesIn}
