@@ -5,6 +5,7 @@ class CaloriesIn extends Component {
     return (
       <React.Fragment>
         <form action="#">
+          <p>Total Calories In: {this.props.caloriesInTotal}</p>
           <label htmlFor="footItem">Enter Food Item</label>
           <input name="foodItem" type="text" placeholder="ex. Steak Burrito" onChange={(e) => this.props.handleInput(e)}/>
         </form>

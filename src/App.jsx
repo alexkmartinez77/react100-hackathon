@@ -123,7 +123,20 @@ class App extends Component {
     let calorieTotal = parseFloat((calculateCalorieTotal(newArray)).toFixed(2));
     userCaloriesCopy.caloriesIn.array = newArray;
     userCaloriesCopy.caloriesIn.total = calorieTotal;
-    userCaloriesCopy.calorieProfile.caloriesRemaining = userCaloriesCopy.calorieProfile.caloricGoals - calorieTotal;
+    userCaloriesCopy.calorieProfile.caloriesRemaining = userCaloriesCopy.caloriesOut.total - userCaloriesCopy.caloriesIn.total;
+    userCaloriesCopy.calorieProfile.percentRemaining = parseFloat((userCaloriesCopy.calorieProfile.caloriesRemaining/userCaloriesCopy.calorieProfile.caloricGoals*100).toFixed(0));
+    this.setState({
+      userCalories: userCaloriesCopy,
+      });
+  }
+
+  logCaloriesOut(){
+    let userCaloriesCopy = JSON.parse(JSON.stringify(this.state.userCalories));
+    let newArray = userCaloriesCopy.caloriesOut.array.concat(this.state.userCalories.caloriesOut.item);
+    let calorieTotal = parseFloat((calculateCalorieTotal(newArray)).toFixed(2));
+    userCaloriesCopy.caloriesOut.array = newArray;
+    userCaloriesCopy.caloriesOut.total = calorieTotal;
+    userCaloriesCopy.calorieProfile.caloriesRemaining = userCaloriesCopy.caloriesOut.total - userCaloriesCopy.caloriesIn.total;
     userCaloriesCopy.calorieProfile.percentRemaining = parseFloat((userCaloriesCopy.calorieProfile.caloriesRemaining/userCaloriesCopy.calorieProfile.caloricGoals*100).toFixed(0));
     this.setState({
       userCalories: userCaloriesCopy,
@@ -138,10 +151,10 @@ class App extends Component {
       chartIntro = <ChartIntro closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userCalories.calorieProfile.caloricGoals}/>
     }
     if(this.state.needCaloriesIn) {
-      caloriesIn = <CaloriesIn closePage={this.closePage} handleInput={this.handleInput} getNutritionData={this.getNutritionData}/>;
+      caloriesIn = <CaloriesIn caloriesInTotal={this.state.userCalories.caloriesIn.total} closePage={this.closePage} handleInput={this.handleInput} getNutritionData={this.getNutritionData}/>;
     }
     if(this.state.needCaloriesOut) {
-      caloriesOut = <CaloriesOut closePage={this.closePage} handleInput={this.handleInput}/>;
+      caloriesOut = <CaloriesOut caloriesOutTotal={this.state.userCalories.caloriesOut.total}closePage={this.closePage} handleInput={this.handleInput}/>;
     }
     if(this.state.needFoodData) {
       foodItemNutrition = <DisplayFoodItemNutrition closePage={this.closePage} caloriesInItem={this.state.userCalories.caloriesIn.item} logCaloriesIn={this.logCaloriesIn}/>;

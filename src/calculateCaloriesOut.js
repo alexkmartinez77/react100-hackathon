@@ -1,3 +1,5 @@
+import calculateCalorieTotal from "./calculateCalorieTotal";
+
 const calculateCalorieProfile = (calorieProfile) => {
   let array = [];
   let obj = {};
@@ -16,7 +18,8 @@ const calculateCalorieProfile = (calorieProfile) => {
 
   array.push(BMR);
   array.push(activityLevel);
-  obj.total = 0;
+  
+  obj.total = calculateCalorieTotal(array);
   obj.item = {};
   obj.array = array;
 
