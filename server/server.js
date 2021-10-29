@@ -29,9 +29,9 @@ app.get('/nutrients/:foodItem', function(req,res) {
         url: 'https://trackapi.nutritionix.com/v2/natural/nutrients/',
         headers: {
         'Content-Type': 'application/json',
-        'x-app-id': process.env.API_ID,
-        'x-app-key': process.env.API_key,
-        'x-remote-user-id': process.env.API_USER_ID,
+        'x-app-id': process.env.NUTRITIONIX_API_ID,
+        'x-app-key': process.env.NUTRITIONIX_API_KEY,
+        'x-remote-user-id': process.env.NUTRITIONIX_API_USER_ID,
         },
         data: nutrientQuery,
       })
@@ -52,9 +52,9 @@ app.post('/exercise', (req, res) => {
         url: 'https://trackapi.nutritionix.com/v2/natural/exercise',
         headers: {
         'Content-Type': 'application/json',
-        'x-app-id': process.env.API_ID,
-        'x-app-key': process.env.API_key,
-        'x-remote-user-id': process.env.API_USER_ID,
+        'x-app-id': process.env.NUTRITIONIX_API_ID,
+        'x-app-key': process.env.NUTRITIONIX_API_KEY,
+        'x-remote-user-id': process.env.NUTRITIONIX_API_USER_ID,
         },
         data: req.body,
       })
@@ -65,7 +65,22 @@ app.post('/exercise', (req, res) => {
         console.error(error);
         res.send('An error occured.');
     })
+});
 
+//gather recipes
+app.get('/recipes/:maxCalories', (req, res) => {
+    let maxCalories = req.params.maxCalories;
+    axios({
+        method: 'get',
+        url: `https://api.edamam.com/api/recipes/v2?app_key=${process.env.EDAMAM_API_KEY}&app_id=${process.env.EDAMAM_API_ID}&type=public&calories=${maxCalories}`,
+      })
+    .then((result) => {
+        res.send(result.data);
+    })
+    .catch((error) => {
+        console.error(error);
+        res.send('An error occured.');
+    })
 });
 
 module.exports = app;
