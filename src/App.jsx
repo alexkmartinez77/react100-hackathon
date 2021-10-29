@@ -15,6 +15,8 @@ import DisplayFoodItemNutrition from "./DisplayFoodItemNutrition";
 import DisplayExerciseItemStats from "./DisplayExerciseItemStats";
 import CaloriesInItem from "./CaloriesInItem";
 import CaloriesOutItem from "./CaloriesOutItem";
+import RecipesOption from "./RecipesOption";
+import Recipe from "./Recipe";
 
 class App extends Component {
   constructor(props) {
@@ -25,10 +27,11 @@ class App extends Component {
       firstTime: true,
       needInfo: true,
       needToIntroduceChart: false,
-      needCaloriesIn:false,
-      needCaloriesOut:false,
-      needFoodData:false,
-      needExerciseData:false,
+      needCaloriesIn: false,
+      needCaloriesOut: false,
+      needFoodData: false,
+      needExerciseData: false,
+      showRecipesOption: true,
       userProfile: {
         age: 43,
         feet: 6,
@@ -57,7 +60,8 @@ class App extends Component {
         },
       },
       foodItem:'food',
-      exerciseItem: '20 min walk'
+      exerciseItem: '20 min walk',
+      recipes: []
     };
     this.closePage = this.closePage.bind(this);
     this.handleInput = this.handleInput.bind(this);
@@ -67,6 +71,7 @@ class App extends Component {
     this.getExerciseData = this.getExerciseData.bind(this);
     this.logCaloriesIn = this.logCaloriesIn.bind(this);
     this.logCaloriesOut = this.logCaloriesOut.bind(this);
+    this.retrieveRecipes = this.retrieveRecipes.bind(this);
   }
 
   closePage(page){
@@ -183,10 +188,21 @@ class App extends Component {
       });
   }
 
+  retrieveRecipes(){
+    let maxCalories = parseFloat(this.state.userCalories.calorieProfile.caloriesRemaining.toFixed(0));
+    axios({method: 'get', url: `/recipes/${maxCalories}`})
+    .then((result) => {
+      this.setState({
+        recipes: result.data.hits
+     });
+    })
+    .catch((error) => {console.error(error);res.send('An error occured.');})
+  }
+
 
   render() {
 
-    let chartIntro, caloriesIn, caloriesOut, foodItem, exerciseItem, caloriesInLog, caloriesOutLog;
+    let chartIntro, caloriesIn, caloriesOut, foodItem, exerciseItem, caloriesInLog, caloriesOutLog, recipesOption, recipes;
     if(this.state.needToIntroduceChart) {
       chartIntro = <ChartIntro closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userCalories.calorieProfile.caloricGoals}/>
     }
@@ -202,6 +218,9 @@ class App extends Component {
     if(this.state.needExerciseData) {
       exerciseItem = <DisplayExerciseItemStats closePage={this.closePage} caloriesOutItem={this.state.userCalories.caloriesOut.item} logCaloriesOut={this.logCaloriesOut}/>;
     }
+    if((this.state.userCalories.calorieProfile.caloriesRemaining <= 700) && (this.state.userCalories.calorieProfile.caloriesRemaining > 100) && this.state.showRecipesOption){
+      recipesOption = <RecipesOption closePage={this.closePage} retrieveRecipes={this.retrieveRecipes} caloriesRemaining={this.state.userCalories.calorieProfile.caloriesRemaining}/>
+    }
     if(this.state.userCalories.caloriesIn.array.length > 0){
       caloriesInLog = this.state.userCalories.caloriesIn.array.map((calorieInItem, index) => {
         return <CaloriesInItem key={index} calorieInItem={calorieInItem}/>
@@ -212,6 +231,12 @@ class App extends Component {
         return <CaloriesOutItem key={index} calorieOutItem={calorieOutItem}/>
       });
     }
+    if(this.state.recipes.length > 0){
+      recipes = this.state.recipes.map((recipeData, index) => {
+        return <Recipe key={index} recipeData={recipeData}/>
+      });
+    }
+
 
     return (
       <div className="container">
@@ -240,6 +265,14 @@ class App extends Component {
               {caloriesOut}
               {exerciseItem}
               {caloriesOutLog}
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col s12">
+            <div className="row">
+              {recipesOption}
+              {recipes}
             </div>
           </div>
         </div>
