@@ -1,6 +1,17 @@
 import React, {Component} from "react";
 
 class Form extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(){
+    this.props.closePage('needInfo'); 
+    this.props.closePage('needToIntroduceChart'); 
+    this.props.calculateCalorieNeeds();
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -39,7 +50,7 @@ class Form extends Component {
             </label>
           </div>
         </form>
-        <button className="waves-effect waves-light btn" onClick={() => {this.props.closePage('needInfo'); this.props.closePage('needToIntroduceChart'); this.props.calculateCalorieNeeds()}}>Proceed</button>
+        <button className="waves-effect waves-light btn" onClick={() => this.handleClick()}>Proceed</button>
       </React.Fragment>
     )
   }
