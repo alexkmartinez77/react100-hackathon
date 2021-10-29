@@ -24,14 +24,16 @@ class App extends Component {
 
     this.state = {
       //create switch object
-      firstTime: true,
-      needInfo: true,
-      needToIntroduceChart: false,
-      needCaloriesIn: false,
-      needCaloriesOut: false,
-      needFoodData: false,
-      needExerciseData: false,
-      showRecipesOption: true,
+      switch:{
+        firstTime: true,
+        needInfo: true,
+        needToIntroduceChart: false,
+        needCaloriesIn: false,
+        needCaloriesOut: false,
+        needFoodData: false,
+        needExerciseData: false,
+        showRecipesOption: true,
+      },
       userProfile: {
         age: 43,
         feet: 6,
@@ -74,9 +76,9 @@ class App extends Component {
     this.retrieveRecipes = this.retrieveRecipes.bind(this);
   }
 
-  closePage(page){
+  closePage(switchCopy){
     this.setState({
-      [page]: !this.state[page],
+      switch: switchCopy,
     })
   }
 
@@ -203,23 +205,23 @@ class App extends Component {
   render() {
 
     let chartIntro, caloriesIn, caloriesOut, foodItem, exerciseItem, caloriesInLog, caloriesOutLog, recipesOption, recipes;
-    if(this.state.needToIntroduceChart) {
-      chartIntro = <ChartIntro closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userCalories.calorieProfile.caloricGoals}/>
+    if(this.state.switch.needToIntroduceChart) {
+      chartIntro = <ChartIntro switch={this.state.switch} closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userCalories.calorieProfile.caloricGoals}/>
     }
-    if(this.state.needCaloriesIn) {
-      caloriesIn = <CaloriesIn caloriesInTotal={this.state.userCalories.caloriesIn.total} closePage={this.closePage} handleItemInput={this.handleItemInput} getNutritionData={this.getNutritionData}/>;
+    if(this.state.switch.needCaloriesIn) {
+      caloriesIn = <CaloriesIn caloriesInTotal={this.state.userCalories.caloriesIn.total} switch={this.state.switch} closePage={this.closePage} handleItemInput={this.handleItemInput} getNutritionData={this.getNutritionData}/>;
     }
-    if(this.state.needCaloriesOut) {
-      caloriesOut = <CaloriesOut caloriesOutTotal={this.state.userCalories.caloriesOut.total} closePage={this.closePage} handleItemInput={this.handleItemInput} getExerciseData={this.getExerciseData}/>;
+    if(this.state.switch.needCaloriesOut) {
+      caloriesOut = <CaloriesOut caloriesOutTotal={this.state.userCalories.caloriesOut.total} switch={this.state.switch} closePage={this.closePage} handleItemInput={this.handleItemInput} getExerciseData={this.getExerciseData}/>;
     }
-    if(this.state.needFoodData) {
-      foodItem = <DisplayFoodItemNutrition closePage={this.closePage} caloriesInItem={this.state.userCalories.caloriesIn.item} logCaloriesIn={this.logCaloriesIn}/>;
+    if(this.state.switch.needFoodData) {
+      foodItem = <DisplayFoodItemNutrition switch={this.state.switch} closePage={this.closePage} caloriesInItem={this.state.userCalories.caloriesIn.item} logCaloriesIn={this.logCaloriesIn}/>;
     }
-    if(this.state.needExerciseData) {
-      exerciseItem = <DisplayExerciseItemStats closePage={this.closePage} caloriesOutItem={this.state.userCalories.caloriesOut.item} logCaloriesOut={this.logCaloriesOut}/>;
+    if(this.state.switch.needExerciseData) {
+      exerciseItem = <DisplayExerciseItemStats switch={this.state.switch} closePage={this.closePage} caloriesOutItem={this.state.userCalories.caloriesOut.item} logCaloriesOut={this.logCaloriesOut}/>;
     }
-    if((this.state.userCalories.calorieProfile.caloriesRemaining <= 700) && (this.state.userCalories.calorieProfile.caloriesRemaining > 100) && this.state.showRecipesOption){
-      recipesOption = <RecipesOption closePage={this.closePage} retrieveRecipes={this.retrieveRecipes} caloriesRemaining={this.state.userCalories.calorieProfile.caloriesRemaining}/>
+    if((this.state.userCalories.calorieProfile.caloriesRemaining <= 700) && (this.state.userCalories.calorieProfile.caloriesRemaining > 100) && this.state.switch.showRecipesOption){
+      recipesOption = <RecipesOption switch={this.state.switch} closePage={this.closePage} retrieveRecipes={this.retrieveRecipes} caloriesRemaining={this.state.userCalories.calorieProfile.caloriesRemaining}/>
     }
     if(this.state.userCalories.caloriesIn.array.length > 0){
       caloriesInLog = this.state.userCalories.caloriesIn.array.map((calorieInItem, index) => {
@@ -243,10 +245,10 @@ class App extends Component {
         <div className="row">
           <div className="col s12">
             {
-              this.state.firstTime 
-              ? <Welcome closePage={this.closePage}/> 
-              : this.state.needInfo 
-              ? <Form closePage={this.closePage} handleInput={this.handleInput} calculateCalorieNeeds={this.calculateCalorieNeeds}/> 
+              this.state.switch.firstTime 
+              ? <Welcome switch={this.state.switch} closePage={this.closePage}/> 
+              : this.state.switch.needInfo 
+              ? <Form switch={this.state.switch} closePage={this.closePage} handleInput={this.handleInput} calculateCalorieNeeds={this.calculateCalorieNeeds}/> 
               : <RadialChart leftOver={[this.state.userCalories.calorieProfile.percentRemaining]}/>
             }
             {chartIntro}
