@@ -45,8 +45,8 @@ app.get('/nutrients/:foodItem', function(req,res) {
 });
 
 //gather excercise info
-app.get('/exercise', (req, res) => {
-
+app.post('/exercise', (req, res) => {
+    
     axios({
         method: 'post',
         url: 'https://trackapi.nutritionix.com/v2/natural/exercise',
@@ -56,10 +56,10 @@ app.get('/exercise', (req, res) => {
         'x-app-key': process.env.API_key,
         'x-remote-user-id': process.env.API_USER_ID,
         },
-        data: exerciseQuery,
+        data: req.body,
       })
     .then((result) => {
-        res.json(result.data);
+        res.send(result.data);
     })
     .catch((error) => {
         console.error(error);
