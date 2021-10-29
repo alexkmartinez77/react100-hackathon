@@ -7,8 +7,10 @@ class Form extends Component {
   }
 
   handleClick(){
-    this.props.closePage('needInfo'); 
-    this.props.closePage('needToIntroduceChart'); 
+    let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
+    switchCopy.needInfo = !switchCopy.needInfo;
+    switchCopy.needToIntroduceChart = !switchCopy.needToIntroduceChart;
+    this.props.closePage(switchCopy);
     this.props.calculateCalorieNeeds();
   }
 

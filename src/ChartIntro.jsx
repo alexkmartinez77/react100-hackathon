@@ -16,9 +16,11 @@ class ChartIntro extends Component {
   }
 
   handleClick(){
-    this.props.closePage('needToIntroduceChart');
-    this.props.closePage('needCaloriesIn');
-    this.props.closePage('needCaloriesOut');
+    let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
+    switchCopy.needToIntroduceChart = !switchCopy.needToIntroduceChart;
+    switchCopy.needCaloriesIn = !switchCopy.needCaloriesIn;
+    switchCopy.needCaloriesOut = !switchCopy.needCaloriesOut;
+    this.props.closePage(switchCopy);
   }
   render() {
     return (

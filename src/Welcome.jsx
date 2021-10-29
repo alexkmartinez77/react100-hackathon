@@ -7,7 +7,9 @@ class Welcome extends Component {
   }
 
   handleClick(){
-    this.props.closePage('firstTime')
+    let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
+    switchCopy.firstTime = !switchCopy.firstTime;
+    this.props.closePage(switchCopy);
   }
   render() {
     return (
@@ -15,6 +17,7 @@ class Welcome extends Component {
         <h1>Welcome to F3</h1>
         <p>Feast - Fast - Fitness</p>
         <p>This app assists with your weight loss/maintenance goals by tracking food choices and recommending recipes and excercises to stay on track.</p>
+        <p>{this.props.switch.firstTime}</p>
         <button className="waves-effect waves-light btn" onClick={() => this.handleClick()}>Enter</button>
       </React.Fragment>
     )

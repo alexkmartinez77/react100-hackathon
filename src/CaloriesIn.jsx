@@ -7,8 +7,10 @@ class CaloriesIn extends Component {
   }
 
   handleClick(){
+    let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
+    switchCopy.needFoodData = !switchCopy.needFoodData;
+    this.props.closePage(switchCopy);
     this.props.getNutritionData();
-    this.props.closePage('needFoodData');
   }
   render() {
     return (

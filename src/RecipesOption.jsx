@@ -7,8 +7,10 @@ class RecipesOption extends Component {
   }
 
   handleClick(){
+    let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
+    switchCopy.showRecipesOption = !switchCopy.showRecipesOption;
+    this.props.closePage(switchCopy);
     this.props.retrieveRecipes();
-    this.props.closePage('showRecipesOption');
   }
   render() {
     return (

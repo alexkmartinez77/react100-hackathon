@@ -7,8 +7,10 @@ class DisplayFoodItemNutrition extends Component {
   }
 
   handleClick(){
+    let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
+    switchCopy.needFoodData = !switchCopy.needFoodData;
+    this.props.closePage(switchCopy);
     this.props.logCaloriesIn();
-    this.props.closePage('needFoodData');
   }
   render() {
     const {name, calories, protein, fat, carbohydrate} = this.props.caloriesInItem;
