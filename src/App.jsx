@@ -12,6 +12,7 @@ import RadialChart from "./RadialChart";
 import CaloriesIn from "./CaloriesIn";
 import CaloriesOut from "./CaloriesOut";
 import DisplayFoodItemNutrition from "./DisplayFoodItemNutrition";
+import DisplayExerciseItemStats from "./DisplayExerciseItemStats";
 import CaloriesInItem from "./CaloriesInItem";
 import CaloriesOutItem from "./CaloriesOutItem";
 
@@ -35,7 +36,6 @@ class App extends Component {
         weight: 200,
         gender: 'male',
         goals: 'maintenance',
-        foodItem: 'food',
       },
       userCalories:{
         calorieProfile:{
@@ -57,12 +57,16 @@ class App extends Component {
         },
       },
       foodItem:'food',
+      exerciseItem: '20 min walk'
     };
     this.closePage = this.closePage.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.handleItemInput = this.handleItemInput.bind(this);
     this.calculateCalorieNeeds = this.calculateCalorieNeeds.bind(this);
     this.getNutritionData = this.getNutritionData.bind(this);
+    this.getExerciseData = this.getExerciseData.bind(this);
     this.logCaloriesIn = this.logCaloriesIn.bind(this);
+    this.logCaloriesOut = this.logCaloriesOut.bind(this);
   }
 
   closePage(page){
@@ -81,6 +85,13 @@ class App extends Component {
     })
   }
 
+  handleItemInput(event){
+
+    this.setState({
+      [event.target.name]: event.target.value,
+    })
+  }
+
   calculateCalorieNeeds(){
     let userProfileCopy = JSON.parse(JSON.stringify(this.state.userProfile));
     let newCalorieProfile = calculateCalorieProfile(userProfileCopy);
@@ -94,10 +105,9 @@ class App extends Component {
   }
 
   getNutritionData(){
-    let userProfileCopy = JSON.parse(JSON.stringify(this.state.userProfile));
     let userCaloriesCopy = JSON.parse(JSON.stringify(this.state.userCalories))
 
-    axios.get(`/nutrients/${userProfileCopy.foodItem}`)
+    axios.get(`/nutrients/${this.state.foodItem}`)
          .then((result) => {
             userCaloriesCopy.caloriesIn.item = {
               name: result.data.food_name,
@@ -113,8 +123,38 @@ class App extends Component {
           })
          .catch((error) => {
             console.error(error);
-          })   
-          
+          });   
+  } 
+
+  getExerciseData(){
+    let userCaloriesCopy = JSON.parse(JSON.stringify(this.state.userCalories));
+    let exerciseQuery = {
+      "query": this.state.exerciseItem,
+      "gender": this.state.userProfile.gender,
+      "weight_kg": parseFloat((this.state.userProfile.weight / 2.2).toFixed(2)),
+      "height_cm": parseFloat((((this.state.userProfile.feet * 12) + this.state.userProfile.inches) * 2.54).toFixed(2)),
+      "age": this.state.userProfile.age
+    }
+
+    axios({
+      method: 'post',
+      url: '/exercise',
+      data: exerciseQuery,
+    })
+    .then((result) => {
+        userCaloriesCopy.caloriesOut.item = {
+          name: result.data.exercises[0].name,
+          calories: result.data.exercises[0].nf_calories,
+          duration: result.data.exercises[0].duration_min
+      };
+      this.setState({
+        userCalories: userCaloriesCopy,
+     });
+    })
+    .catch((error) => {
+        console.error(error);
+        res.send('An error occured.');
+    })
   } 
 
   logCaloriesIn(){
@@ -146,18 +186,21 @@ class App extends Component {
 
   render() {
 
-    let chartIntro, caloriesIn, caloriesOut,foodItemNutrition, caloriesInLog, caloriesOutLog;
+    let chartIntro, caloriesIn, caloriesOut, foodItem, exerciseItem, caloriesInLog, caloriesOutLog;
     if(this.state.needToIntroduceChart) {
       chartIntro = <ChartIntro closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userCalories.calorieProfile.caloricGoals}/>
     }
     if(this.state.needCaloriesIn) {
-      caloriesIn = <CaloriesIn caloriesInTotal={this.state.userCalories.caloriesIn.total} closePage={this.closePage} handleInput={this.handleInput} getNutritionData={this.getNutritionData}/>;
+      caloriesIn = <CaloriesIn caloriesInTotal={this.state.userCalories.caloriesIn.total} closePage={this.closePage} handleItemInput={this.handleItemInput} getNutritionData={this.getNutritionData}/>;
     }
     if(this.state.needCaloriesOut) {
-      caloriesOut = <CaloriesOut caloriesOutTotal={this.state.userCalories.caloriesOut.total}closePage={this.closePage} handleInput={this.handleInput}/>;
+      caloriesOut = <CaloriesOut caloriesOutTotal={this.state.userCalories.caloriesOut.total} closePage={this.closePage} handleItemInput={this.handleItemInput} getExerciseData={this.getExerciseData}/>;
     }
     if(this.state.needFoodData) {
-      foodItemNutrition = <DisplayFoodItemNutrition closePage={this.closePage} caloriesInItem={this.state.userCalories.caloriesIn.item} logCaloriesIn={this.logCaloriesIn}/>;
+      foodItem = <DisplayFoodItemNutrition closePage={this.closePage} caloriesInItem={this.state.userCalories.caloriesIn.item} logCaloriesIn={this.logCaloriesIn}/>;
+    }
+    if(this.state.needExerciseData) {
+      exerciseItem = <DisplayExerciseItemStats closePage={this.closePage} caloriesOutItem={this.state.userCalories.caloriesOut.item} logCaloriesOut={this.logCaloriesOut}/>;
     }
     if(this.state.userCalories.caloriesIn.array.length > 0){
       caloriesInLog = this.state.userCalories.caloriesIn.array.map((calorieInItem, index) => {
@@ -188,14 +231,14 @@ class App extends Component {
           <div className="col s6">
             <div className="row">
               {caloriesIn}
-              {foodItemNutrition}
+              {foodItem}
               {caloriesInLog}
             </div>
           </div>
           <div className="col s6">
             <div className="row">
               {caloriesOut}
-              {/*exerciseItem*/}
+              {exerciseItem}
               {caloriesOutLog}
             </div>
           </div>
