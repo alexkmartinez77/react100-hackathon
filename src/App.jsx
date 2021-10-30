@@ -32,6 +32,8 @@ class App extends Component {
         needFoodData: false,
         needExerciseData: false,
         showRecipesOption: true,
+        needCaloriesInLog: false,
+        needCaloriesOutLog: false,
       },
       userProfile: {
         age: 43,
@@ -228,12 +230,12 @@ class App extends Component {
     if((this.state.userCalories.calorieProfile.caloriesRemaining <= 700) && (this.state.userCalories.calorieProfile.caloriesRemaining > 100) && this.state.switch.showRecipesOption){
       recipesOption = <RecipesOption switch={this.state.switch} closePage={this.closePage} retrieveRecipes={this.retrieveRecipes} caloriesRemaining={this.state.userCalories.calorieProfile.caloriesRemaining}/>
     }
-    if(this.state.userCalories.caloriesIn.array.length > 0){
+    if((this.state.userCalories.caloriesIn.array.length > 0) && this.state.switch.needCaloriesInLog){
       caloriesInLog = this.state.userCalories.caloriesIn.array.map((calorieInItem, index) => {
         return <CaloriesInItem key={index} calorieInItem={calorieInItem}/>
       });
     }
-    if(this.state.userCalories.caloriesOut.array.length > 0){
+    if((this.state.userCalories.caloriesOut.array.length > 0) && this.state.switch.needCaloriesOutLog){
       caloriesOutLog = this.state.userCalories.caloriesOut.array.map((calorieOutItem, index) => {
         return <CaloriesOutItem key={index} calorieOutItem={calorieOutItem}/>
       });
