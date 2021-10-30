@@ -1,28 +1,27 @@
 import React, {Component} from "react";
-import M from "materialize-css";
 
 class Recipe extends Component {
-  componentDidMount() {
-  var elem = document.querySelector('.carousel');
-  var instance = M.Carousel.init(elem, { duration: 200 });
-}
    render() {
-     //let recipeName =this.props.recipeData.recipe.label;
     return (
-      <React.Fragment>
-        <div className="carousel">
-          <a className="carousel-item" href="#"><img src={this.props.recipeData[0].recipe.image}></img></a>
-          <a className="carousel-item" href="#"><img src={this.props.recipeData[1].recipe.image}></img></a>
-          <a className="carousel-item" href="#"><img src={this.props.recipeData[2].recipe.image}></img></a>
-          <a className="carousel-item" href="#"><img src={this.props.recipeData[3].recipe.image}></img></a>
-          <a className="carousel-item" href="#"><img src={this.props.recipeData[4].recipe.image}></img></a>
-          <a className="carousel-item" href="#"><img src={this.props.recipeData[5].recipe.image}></img></a>
-          <a className="carousel-item" href="#"><img src={this.props.recipeData[6].recipe.image}></img></a>
-          <a className="carousel-item" href="#"><img src={this.props.recipeData[7].recipe.image}></img></a>
-          <a className="carousel-item" href="#"><img src={this.props.recipeData[8].recipe.image}></img></a>
-          <a className="carousel-item" href="#"><img src={this.props.recipeData[9].recipe.image}></img></a>
-        </div>      
-      </React.Fragment>
+      <div className="card carousel-item">
+        <div>
+          <div className="col s6 caloriesHeader left-align">
+            <span>Calories</span>
+          </div>
+          <div className="col s6 caloriesHeader right-align">
+            <span>{(this.props.recipe.recipe.calories/this.props.recipe.recipe.yield).toFixed(2)}</span>
+          </div>
+        </div>
+        <img src={this.props.recipe.recipe.image}></img>
+        <div className="caloriesHeader">
+          <span>{this.props.recipe.recipe.label}</span>
+        </div>
+        <div>
+          <a className="valign-wrapper" href={this.props.recipe.recipe.url} target="_blank">
+            <span className="material-icons">link</span>Recipe
+          </a>
+        </div>
+      </div>
     )
   }
 }

@@ -16,7 +16,7 @@ import DisplayExerciseItemStats from "./DisplayExerciseItemStats";
 import CaloriesInItem from "./CaloriesInItem";
 import CaloriesOutItem from "./CaloriesOutItem";
 import RecipesOption from "./RecipesOption";
-import Recipe from "./Recipe";
+import Recipes from "./Recipes";
 
 class App extends Component {
   constructor(props) {
@@ -239,7 +239,7 @@ class App extends Component {
       });
     }
     if(this.state.recipes.length > 0){
-        recipes = <Recipe recipeData={this.state.recipes}/>
+        recipes = <Recipes recipeData={this.state.recipes}/>
     }
     
     return (
@@ -273,14 +273,9 @@ class App extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col s12">
-            <div className="row">
-              {recipesOption}
-              {recipes}
-            </div>
-          </div>
+          {recipesOption}
+          {recipes}
         </div>
-
       </div>
     );
   }
