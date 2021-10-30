@@ -17,6 +17,9 @@ class DisplayFoodItemNutrition extends Component {
     return (
       <React.Fragment>
         <p>A {name} has {calories} calories and the following pofile :</p>
+        <div>
+          
+        </div>
         <p>Protein: {protein}g</p>
         <p>Fat: {fat}g</p>
         <p>Carbohydrates: {carbohydrate}g</p>

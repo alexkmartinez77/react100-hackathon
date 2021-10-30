@@ -16,14 +16,13 @@ import DisplayExerciseItemStats from "./DisplayExerciseItemStats";
 import CaloriesInItem from "./CaloriesInItem";
 import CaloriesOutItem from "./CaloriesOutItem";
 import RecipesOption from "./RecipesOption";
-import Recipe from "./Recipe";
+import Recipes from "./Recipes";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      //create switch object
       switch:{
         firstTime: true,
         needInfo: true,
@@ -195,12 +194,18 @@ class App extends Component {
     axios({method: 'get', url: `/recipes/${maxCalories}`})
     .then((result) => {
       this.setState({
-        recipes: result.data.hits
+        recipes: result.data.hits,
      });
     })
     .catch((error) => {console.error(error);res.send('An error occured.');})
   }
 
+  componentDidUpdate() {
+
+    let collapsible = document.querySelectorAll(".collapsible");
+
+    M.Collapsible.init(collapsible, {});
+  }
 
   render() {
 
@@ -234,12 +239,9 @@ class App extends Component {
       });
     }
     if(this.state.recipes.length > 0){
-      recipes = this.state.recipes.map((recipeData, index) => {
-        return <Recipe key={index} recipeData={recipeData}/>
-      });
+        recipes = <Recipes recipeData={this.state.recipes}/>
     }
-
-
+    
     return (
       <div className="container">
         <div className="row">
@@ -271,12 +273,8 @@ class App extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col s12">
-            <div className="row">
-              {recipesOption}
-              {recipes}
-            </div>
-          </div>
+          {recipesOption}
+          {recipes}
         </div>
       </div>
     );
