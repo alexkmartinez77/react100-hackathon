@@ -46,24 +46,24 @@ class CalorieControlPanel extends Component {
                 <span className="material-icons redColor pointer" onClick={() => this.handleCaloriesInPanel()}>playlist_add</span>
               </div>
               <div className="col s4">
-                <span className="material-icons redColor" onClick={() => this.handleCaloriesInLog()}>manage_search</span>
+                <span className="material-icons redColor pointer" onClick={() => this.handleCaloriesInLog()}>manage_search</span>
               </div>
             </div>
           </div>
           <div className="col s4 center-align">
             <div className="row">
               <div className="col s12">
-                <span className="material-icons yellowColor">manage_search</span>
+                <span className="material-icons yellowColor pointer">manage_search</span>
               </div>
             </div>
           </div>
           <div className="col s4 center-align">
             <div className="row">
               <div className="col s4 offset-s2">
-                <span className="material-icons greenColor" onClick={() => this.handleCaloriesOutPanel()}>playlist_add</span>
+                <span className="material-icons greenColor pointer" onClick={() => this.handleCaloriesOutPanel()}>playlist_add</span>
               </div>
               <div className="col s4">
-                <span className="material-icons greenColor" onClick={() => this.handleCaloriesOutLog()}>manage_search</span>
+                <span className="material-icons greenColor pointer" onClick={() => this.handleCaloriesOutLog()}>manage_search</span>
               </div>
           </div>
         </div>
