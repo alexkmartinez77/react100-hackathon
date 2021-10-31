@@ -123,7 +123,7 @@ class App extends Component {
          .then((result) => {
             userCaloriesCopy.caloriesIn.item = {
               name: result.data.food_name,
-              calories: result.data.nf_calories,
+              calories: parseFloat((result.data.nf_calories).toFixed(0)),
               protein: result.data.nf_protein,
               fat: result.data.nf_total_fat,
               carbohydrate: result.data.nf_total_carbohydrate,
@@ -143,8 +143,8 @@ class App extends Component {
     let exerciseQuery = {
       "query": this.state.exerciseItem,
       "gender": this.state.userProfile.gender,
-      "weight_kg": parseFloat((this.state.userProfile.weight / 2.2).toFixed(2)),
-      "height_cm": parseFloat((((this.state.userProfile.feet * 12) + this.state.userProfile.inches) * 2.54).toFixed(2)),
+      "weight_kg": parseFloat((this.state.userProfile.weight / 2.2).toFixed(0)),
+      "height_cm": parseFloat((((this.state.userProfile.feet * 12) + this.state.userProfile.inches) * 2.54).toFixed(0)),
       "age": this.state.userProfile.age
     }
 
@@ -156,7 +156,7 @@ class App extends Component {
     .then((result) => {
         userCaloriesCopy.caloriesOut.item = {
           name: result.data.exercises[0].name,
-          calories: result.data.exercises[0].nf_calories,
+          calories: parseFloat((result.data.exercises[0].nf_calories).toFixed(0)),
           duration: result.data.exercises[0].duration_min
       };
       this.setState({
@@ -172,7 +172,7 @@ class App extends Component {
   logCaloriesIn(){
     let userCaloriesCopy = JSON.parse(JSON.stringify(this.state.userCalories));
     let newArray = userCaloriesCopy.caloriesIn.array.concat(this.state.userCalories.caloriesIn.item);
-    let calorieTotal = parseFloat((calculateCalorieTotal(newArray)).toFixed(2));
+    let calorieTotal = parseFloat((calculateCalorieTotal(newArray)).toFixed(0));
     userCaloriesCopy.caloriesIn.array = newArray;
     userCaloriesCopy.caloriesIn.total = calorieTotal;
     userCaloriesCopy.calorieProfile.caloriesRemaining = userCaloriesCopy.caloriesOut.total - userCaloriesCopy.caloriesIn.total;
@@ -185,7 +185,7 @@ class App extends Component {
   logCaloriesOut(){
     let userCaloriesCopy = JSON.parse(JSON.stringify(this.state.userCalories));
     let newArray = userCaloriesCopy.caloriesOut.array.concat(this.state.userCalories.caloriesOut.item);
-    let calorieTotal = parseFloat((calculateCalorieTotal(newArray)).toFixed(2));
+    let calorieTotal = parseFloat((calculateCalorieTotal(newArray)).toFixed(0));
     userCaloriesCopy.caloriesOut.array = newArray;
     userCaloriesCopy.caloriesOut.total = calorieTotal;
     userCaloriesCopy.calorieProfile.caloriesRemaining = userCaloriesCopy.caloriesOut.total - userCaloriesCopy.caloriesIn.total;
