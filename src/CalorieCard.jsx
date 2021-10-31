@@ -6,7 +6,7 @@ class CalorieCard extends Component {
     return (
       <React.Fragment>
         <div className="row card">
-          <div class="center-align">
+          <div className="center-align">
             <span className="caloriesTitle">CALORIES</span>
           </div>
           <div>

@@ -9,16 +9,20 @@ class DisplayFoodItemNutrition extends Component {
 
   handleLogClick(){
     let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
-    switchCopy.needFoodData = !switchCopy.needFoodData;
-    switchCopy.needCaloriesInLog = !switchCopy.needCaloriesInLog;
+    switchCopy.needFoodData = false;
+    switchCopy.needCaloriesIn = false;
+    switchCopy.needCaloriesInLog = false;
+    switchCopy.showCalorieControlPanel = true;
     this.props.closePage(switchCopy);
     this.props.logCaloriesIn();
   }
 
   handleCloseClick(){
     let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
-    switchCopy.needFoodData = !switchCopy.needFoodData;
-    switchCopy.needCaloriesInLog = !switchCopy.needCaloriesInLog;
+    switchCopy.needFoodData = false;
+    switchCopy.needCaloriesIn = false;
+    switchCopy.needCaloriesInLog = false;
+    switchCopy.showCalorieControlPanel = true;
     this.props.closePage(switchCopy);
   }
 
