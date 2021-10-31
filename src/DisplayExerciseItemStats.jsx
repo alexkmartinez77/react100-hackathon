@@ -9,16 +9,20 @@ class DisplayExerciseItemStats extends Component {
   
   handleLogClick(){
     let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
-    switchCopy.needExerciseData = !switchCopy.needExerciseData;
-    switchCopy.needCaloriesOutLog = !switchCopy.needCaloriesOutLog;
+    switchCopy.needExerciseData = false;
+    switchCopy.needCaloriesOut = false;
+    switchCopy.needCaloriesOutLog = false;
+    switchCopy.showCalorieControlPanel = true;
     this.props.closePage(switchCopy);
     this.props.logCaloriesOut();
   }
 
   handleCloseClick(){
     let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
-    switchCopy.needExerciseData = !switchCopy.needExerciseData;
-    switchCopy.needCaloriesOutLog = !switchCopy.needCaloriesOutLog;
+    switchCopy.needExerciseData = false;
+    switchCopy.needCaloriesOut = false;
+    switchCopy.needCaloriesOutLog = false;
+    switchCopy.showCalorieControlPanel = true;
     this.props.closePage(switchCopy);
   }
 
@@ -26,12 +30,15 @@ class DisplayExerciseItemStats extends Component {
     const {name, calories, duration} = this.props.caloriesOutItem;
     return (
       <React.Fragment>
-        <p>Performing {duration} min of {name} burns {calories} calories.</p>
-        <div>
-          <a className="btn-floating green" onClick={() => this.handleLogClick()}><i className="material-icons">add</i></a>
-          <a className="btn-floating red" onClick={() => this.handleCloseClick()}><i className="material-icons">clear</i></a>
+        <p className="caloriesData">Performing <span className="greenColor">{duration}</span> min of <span className="greenColor">{name}</span> burns {calories} calories.</p>
+        <div className="row">
+          <div className="col s2 offset-s4">
+            <span className="material-icons pointer" onClick={() => this.handleLogClick()}>playlist_add</span>
+          </div>
+          <div className="col s2">
+            <span className="material-icons pointer" onClick={() => this.handleCloseClick()}>cancel_presentation</span>
+          </div>
         </div>
-
       </React.Fragment>
     )
   }
