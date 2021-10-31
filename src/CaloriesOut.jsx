@@ -15,13 +15,15 @@ class CaloriesIn extends Component {
   }
   render() {
     return (
-      <React.Fragment>
-        <form action="#">
-          <label htmlFor="exerciseItem">Enter Exercise Activity</label>
-          <input name="exerciseItem" type="text" placeholder="ex. 20 min walking" onChange={(e) => this.props.handleItemInput(e)}/>
-        </form>
-        <button className="waves-effect waves-light btn" onClick={() => this.handleClick()}>Calculate</button>
-      </React.Fragment>
+      <div className="row card">
+        <div className="col s12">
+          <form action="#">
+            <label htmlFor="exerciseItem">Enter Exercise Activity</label>
+            <input name="exerciseItem" type="text" placeholder="ex. 20 min walking" onChange={(e) => this.props.handleItemInput(e)}/>
+          </form>
+          <button className="waves-effect waves-light btn" onClick={() => this.handleClick()}>Calculate</button>
+        </div>
+      </div>
     )
   }
 }
