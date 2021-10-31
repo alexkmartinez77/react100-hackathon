@@ -16,7 +16,7 @@ class CaloriesIn extends Component {
   render() {
     return (
       <div className="row card">
-        <div className="col">
+        <div className="col s12">
           <form action="#">
             <label htmlFor="footItem">Enter Food Item</label>
             <input name="foodItem" type="text" placeholder="ex. Steak Burrito" onChange={(e) => this.props.handleItemInput(e)}/>

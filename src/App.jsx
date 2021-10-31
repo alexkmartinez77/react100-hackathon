@@ -13,7 +13,7 @@ import CaloriesIn from "./CaloriesIn";
 import CaloriesOut from "./CaloriesOut";
 import DisplayFoodItemNutrition from "./DisplayFoodItemNutrition";
 import DisplayExerciseItemStats from "./DisplayExerciseItemStats";
-import CaloriesInItem from "./CaloriesInItem";
+import CaloriesInLog from "./CaloriesInLog";
 import CaloriesOutItem from "./CaloriesOutItem";
 import RecipesOption from "./RecipesOption";
 import Recipes from "./Recipes";
@@ -215,7 +215,7 @@ class App extends Component {
 
   render() {
 
-    let chartIntro, caloriesIn, caloriesOut, foodItem, exerciseItem, caloriesInLog, caloriesOutLog, recipesOption, recipes, calorieCard, calorieControlPanel;
+    let chartIntro, caloriesIn, caloriesOut, foodItem, exerciseItem, caloriesInLog, caloriesOutLog, recipesOption, recipes, calorieCard, calorieControlPanel, caloriesOutItem;
 
     if(this.state.switch.needToIntroduceChart) {
       chartIntro = <ChartIntro switch={this.state.switch} closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userCalories.calorieProfile.caloricGoals}/>
@@ -242,15 +242,15 @@ class App extends Component {
       recipesOption = <RecipesOption switch={this.state.switch} closePage={this.closePage} retrieveRecipes={this.retrieveRecipes} caloriesRemaining={this.state.userCalories.calorieProfile.caloriesRemaining}/>
     }
     if((this.state.userCalories.caloriesIn.array.length > 0) && this.state.switch.needCaloriesInLog){
-      caloriesInLog = this.state.userCalories.caloriesIn.array.map((calorieInItem, index) => {
-        return <CaloriesInItem key={index} calorieInItem={calorieInItem}/>
-      });
+      caloriesInLog = <CaloriesInLog switch={this.state.switch} closePage={this.closePage} log={this.state.userCalories.caloriesIn.array}/>
     }
+    
     if((this.state.userCalories.caloriesOut.array.length > 0) && this.state.switch.needCaloriesOutLog){
       caloriesOutLog = this.state.userCalories.caloriesOut.array.map((calorieOutItem, index) => {
         return <CaloriesOutItem key={index} calorieOutItem={calorieOutItem}/>
       });
     }
+
     if(this.state.recipes.length > 0){
         recipes = <Recipes recipeData={this.state.recipes}/>
     }
