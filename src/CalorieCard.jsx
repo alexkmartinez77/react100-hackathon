@@ -34,7 +34,7 @@ class CalorieCard extends Component {
               <span>{this.props.userCalories.caloriesOut.total}</span>
             </div>
           </div>
-      </div>
+        </div>
       </React.Fragment>
     )
   }
