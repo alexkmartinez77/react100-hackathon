@@ -8,7 +8,7 @@ class Welcome extends Component {
 
   handleClick(){
     let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
-    switchCopy.firstTime = !switchCopy.firstTime;
+    switchCopy.firstTime = false;
     this.props.closePage(switchCopy);
   }
   render() {

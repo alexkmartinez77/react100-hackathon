@@ -224,7 +224,7 @@ class App extends Component {
       calorieCard = <CalorieCard userCalories={this.state.userCalories}/>
     }
     if(this.state.switch.showCalorieControlPanel) {
-      calorieControlPanel = <CalorieControlPanel switch={this.state.switch}/>
+      calorieControlPanel = <CalorieControlPanel switch={this.state.switch} closePage={this.closePage}/>
     }
     if(this.state.switch.needCaloriesIn) {
       caloriesIn = <CaloriesIn caloriesInTotal={this.state.userCalories.caloriesIn.total} switch={this.state.switch} closePage={this.closePage} handleItemInput={this.handleItemInput} getNutritionData={this.getNutritionData}/>;
@@ -271,24 +271,30 @@ class App extends Component {
         </div>
         {calorieCard}
         {calorieControlPanel}
-        <div className="row card">
+        <div className="row">
           <div className="col s12">
             {caloriesIn}
           </div>
         </div>
         <div className="row">
+          <div className="col s12">
+            {foodItem}
+            {caloriesInLog}
+          </div>
+        </div>
+        <div className="row">
           <div className="col s6">
             <div className="row">
-              {caloriesIn}
-              {foodItem}
-              {caloriesInLog}
+              {/*caloriesIn*/}
+              {/*foodItem*/}
+              {/*caloriesInLog*/}
             </div>
           </div>
           <div className="col s6">
             <div className="row">
-              {caloriesOut}
-              {exerciseItem}
-              {caloriesOutLog}
+              {/*caloriesOut*/}
+              {/*exerciseItem*/}
+              {/*caloriesOutLog*/}
             </div>
           </div>
         </div>

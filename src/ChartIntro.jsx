@@ -17,20 +17,20 @@ class ChartIntro extends Component {
 
   handleClick(){
     let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
-    switchCopy.needToIntroduceChart = !switchCopy.needToIntroduceChart;
-    switchCopy.needCaloriesIn = !switchCopy.needCaloriesIn;
-    switchCopy.needCaloriesOut = !switchCopy.needCaloriesOut;
-    switchCopy.needCaloriesOutLog = !switchCopy.needCaloriesOutLog; 
-    switchCopy.needCaloriesInLog = !switchCopy.needCaloriesInLog;
-    switchCopy.showCalorieCard = !switchCopy.showCalorieCard; 
-    switchCopy.showCalorieControlPanel = !switchCopy.showCalorieControlPanel; 
+    switchCopy.needToIntroduceChart = false;
+    //switchCopy.needCaloriesIn = !switchCopy.needCaloriesIn;
+    //switchCopy.needCaloriesOut = !switchCopy.needCaloriesOut;
+    //switchCopy.needCaloriesOutLog = !switchCopy.needCaloriesOutLog; 
+    //switchCopy.needCaloriesInLog = !switchCopy.needCaloriesInLog;
+    switchCopy.showCalorieCard = true; 
+    switchCopy.showCalorieControlPanel = true; 
     this.props.closePage(switchCopy);
   }
   render() {
     return (
       <React.Fragment>
         <p>Based on the data you provided, your calorie intake should be {this.props.caloricGoals} for your {this.props.goals} goals. The chart above will keep track of the calories you have left to eat for the day.</p>
-        <p><a style={{color: 'blue', cursor: 'pointer'}} onClick={() => this.handleClick()}>Start logging</a> your calories.</p>
+        <p><a className="pointer blueColor"onClick={() => this.handleClick()}>Start logging</a> your calories.</p>
       </React.Fragment>
     )
   }
