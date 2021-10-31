@@ -53,8 +53,8 @@ class DisplayFoodItemNutrition extends Component {
           </div>
         </div>
         <div>
-          <a className="btn-floating green" onClick={() => this.handleLogClick()}><i class="material-icons">add</i></a>
-          <a className="btn-floating red" onClick={() => this.handleCloseClick()}><i class="material-icons">clear</i></a>
+          <a className="btn-floating green" onClick={() => this.handleLogClick()}><i className="material-icons">add</i></a>
+          <a className="btn-floating red" onClick={() => this.handleCloseClick()}><i className="material-icons">clear</i></a>
         </div>
       </React.Fragment>
     )

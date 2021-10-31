@@ -6,7 +6,6 @@ constructor(props) {
   super(props);
 
   this.state = {
-  
     series: [50],
     options: {
       chart: {
@@ -18,6 +17,14 @@ constructor(props) {
         radialBar: {
           startAngle: -135,
           endAngle: 135,
+          hollow: {
+            margin: 30,
+            size: '60%',
+            image: undefined,
+            imageWidth: 64,
+            imageHeight: 64,
+            imageClipped: false
+          },
           dataLabels: {
             name: {
               fontSize: '16px',
@@ -51,8 +58,6 @@ constructor(props) {
       },
       labels: ['Calories Left'],
     },
-  
-  
   };
 }
 

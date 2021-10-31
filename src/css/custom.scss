@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+body{
+    background-color: rgb(248, 248, 248);
+}
+.card { 
+    border-radius : 5px; 
+}
+
+//Carousel
 .carousel { 
     height: 425px;
 }
@@ -28,4 +37,34 @@
     padding-top: .1rem !important;
     padding-bottom: .1rem !important;
 }
+
+//Calories Card
+.caloriesTitle{
+    font-size: 1.5rem;
+    font-family: 'Poppins';
+}
+
+.caloriesData{
+    font-size: 1.1rem;
+    font-family: 'Poppins';
+}
+
+.caloriesLabel{
+    font-size: 1.1rem;
+    font-family: 'Poppins';
+    color:#bdbdbd;
+}
+
+.redColor{
+    color: #e57373;
+}
+
+.yellowColor{
+    color: #ffd54f;
+}
+
+.greenColor{
+    color: #81c784;
+}
+
 
