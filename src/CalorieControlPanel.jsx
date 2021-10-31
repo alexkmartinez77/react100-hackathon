@@ -5,6 +5,7 @@ class CalorieControlPanel extends Component {
     super(props);
     this.handleCaloriesInPanel = this.handleCaloriesInPanel.bind(this);
     this.handleCaloriesInLog = this.handleCaloriesInLog.bind(this);
+    this.handleCaloriesOutLog = this.handleCaloriesOutLog.bind(this);
   }
   
   handleCaloriesInPanel(){
@@ -17,6 +18,13 @@ class CalorieControlPanel extends Component {
   handleCaloriesInLog(){
     let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
     switchCopy.needCaloriesInLog = true;
+    switchCopy.showCalorieControlPanel = false;
+    this.props.closePage(switchCopy);
+  }
+
+  handleCaloriesOutLog(){
+    let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
+    switchCopy.needCaloriesOutLog = true;
     switchCopy.showCalorieControlPanel = false;
     this.props.closePage(switchCopy);
   }
@@ -48,7 +56,7 @@ class CalorieControlPanel extends Component {
                   <span className="material-icons greenColor">playlist_add</span>
                 </div>
                 <div className="col s4">
-                  <span className="material-icons greenColor">manage_search</span>
+                  <span className="material-icons greenColor" onClick={() => this.handleCaloriesOutLog()}>manage_search</span>
                 </div>
               </div>
             </div>

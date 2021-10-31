@@ -3,12 +3,13 @@ import React, {Component} from "react";
 class CaloriesOutItem extends Component {
 
   render() {
-    const {name, calories} = this.props.calorieOutItem;
+    const {name, calories} = this.props.caloriesOutItem;
 
     return (
-      <React.Fragment>
-        <p>{name} {calories}</p>
-      </React.Fragment>
+      <li className="collection-item">
+          <span className="greenColor caloriesData">{name} </span>
+          <span className="caloriesData"> {calories} cal</span>
+      </li>
     )
   }
 }

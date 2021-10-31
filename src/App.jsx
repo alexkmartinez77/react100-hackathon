@@ -14,6 +14,7 @@ import CaloriesOut from "./CaloriesOut";
 import DisplayFoodItemNutrition from "./DisplayFoodItemNutrition";
 import DisplayExerciseItemStats from "./DisplayExerciseItemStats";
 import CaloriesInLog from "./CaloriesInLog";
+import CaloriesOutLog from "./CaloriesOutLog";
 import CaloriesOutItem from "./CaloriesOutItem";
 import RecipesOption from "./RecipesOption";
 import Recipes from "./Recipes";
@@ -33,7 +34,7 @@ class App extends Component {
         needCaloriesOut: false,
         needFoodData: false,
         needExerciseData: false,
-        showRecipesOption: true,
+        showRecipesOption: false,
         showCalorieCard: false,
         showCalorieControlPanel: false,
         needCaloriesInLog: false,
@@ -215,7 +216,7 @@ class App extends Component {
 
   render() {
 
-    let chartIntro, caloriesIn, caloriesOut, foodItem, exerciseItem, caloriesInLog, caloriesOutLog, recipesOption, recipes, calorieCard, calorieControlPanel, caloriesOutItem;
+    let chartIntro, caloriesIn, caloriesOut, foodItem, exerciseItem, caloriesInLog, caloriesOutLog, recipesOption, recipes, calorieCard, calorieControlPanel;
 
     if(this.state.switch.needToIntroduceChart) {
       chartIntro = <ChartIntro switch={this.state.switch} closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userCalories.calorieProfile.caloricGoals}/>
@@ -246,9 +247,7 @@ class App extends Component {
     }
     
     if((this.state.userCalories.caloriesOut.array.length > 0) && this.state.switch.needCaloriesOutLog){
-      caloriesOutLog = this.state.userCalories.caloriesOut.array.map((calorieOutItem, index) => {
-        return <CaloriesOutItem key={index} calorieOutItem={calorieOutItem}/>
-      });
+      caloriesOutLog = <CaloriesOutLog switch={this.state.switch} closePage={this.closePage} log={this.state.userCalories.caloriesOut.array}/>
     }
 
     if(this.state.recipes.length > 0){
@@ -279,7 +278,9 @@ class App extends Component {
         <div className="row">
           <div className="col s12">
             {foodItem}
+            {/*exerciseItem*/}
             {caloriesInLog}
+            {caloriesOutLog}
           </div>
         </div>
         <div className="row">
