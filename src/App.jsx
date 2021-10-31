@@ -18,6 +18,7 @@ import CaloriesOutItem from "./CaloriesOutItem";
 import RecipesOption from "./RecipesOption";
 import Recipes from "./Recipes";
 import CalorieCard from "./CalorieCard";
+import CalorieControlPanel from "./CalorieControlPanel";
 
 class App extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class App extends Component {
         needExerciseData: false,
         showRecipesOption: true,
         showCalorieCard: false,
+        showCalorieControlPanel: false,
         needCaloriesInLog: false,
         needCaloriesOutLog: false,
       },
@@ -213,13 +215,16 @@ class App extends Component {
 
   render() {
 
-    let chartIntro, caloriesIn, caloriesOut, foodItem, exerciseItem, caloriesInLog, caloriesOutLog, recipesOption, recipes, calorieCard;
+    let chartIntro, caloriesIn, caloriesOut, foodItem, exerciseItem, caloriesInLog, caloriesOutLog, recipesOption, recipes, calorieCard, calorieControlPanel;
 
     if(this.state.switch.needToIntroduceChart) {
       chartIntro = <ChartIntro switch={this.state.switch} closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userCalories.calorieProfile.caloricGoals}/>
     }
     if(this.state.switch.showCalorieCard) {
       calorieCard = <CalorieCard userCalories={this.state.userCalories}/>
+    }
+    if(this.state.switch.showCalorieControlPanel) {
+      calorieControlPanel = <CalorieControlPanel switch={this.state.switch}/>
     }
     if(this.state.switch.needCaloriesIn) {
       caloriesIn = <CaloriesIn caloriesInTotal={this.state.userCalories.caloriesIn.total} switch={this.state.switch} closePage={this.closePage} handleItemInput={this.handleItemInput} getNutritionData={this.getNutritionData}/>;
@@ -265,6 +270,12 @@ class App extends Component {
           </div>
         </div>
         {calorieCard}
+        {calorieControlPanel}
+        <div className="row card">
+          <div className="col s12">
+            {caloriesIn}
+          </div>
+        </div>
         <div className="row">
           <div className="col s6">
             <div className="row">

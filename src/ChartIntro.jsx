@@ -23,6 +23,7 @@ class ChartIntro extends Component {
     switchCopy.needCaloriesOutLog = !switchCopy.needCaloriesOutLog; 
     switchCopy.needCaloriesInLog = !switchCopy.needCaloriesInLog;
     switchCopy.showCalorieCard = !switchCopy.showCalorieCard; 
+    switchCopy.showCalorieControlPanel = !switchCopy.showCalorieControlPanel; 
     this.props.closePage(switchCopy);
   }
   render() {
