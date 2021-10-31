@@ -15,7 +15,6 @@ import DisplayFoodItemNutrition from "./DisplayFoodItemNutrition";
 import DisplayExerciseItemStats from "./DisplayExerciseItemStats";
 import CaloriesInLog from "./CaloriesInLog";
 import CaloriesOutLog from "./CaloriesOutLog";
-import CaloriesOutItem from "./CaloriesOutItem";
 import RecipesOption from "./RecipesOption";
 import Recipes from "./Recipes";
 import CalorieCard from "./CalorieCard";
@@ -273,12 +272,13 @@ class App extends Component {
         <div className="row">
           <div className="col s12">
             {caloriesIn}
+            {caloriesOut}
           </div>
         </div>
         <div className="row">
           <div className="col s12">
             {foodItem}
-            {/*exerciseItem*/}
+            {exerciseItem}
             {caloriesInLog}
             {caloriesOutLog}
           </div>
