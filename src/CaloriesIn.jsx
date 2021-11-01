@@ -19,8 +19,10 @@ class CaloriesIn extends Component {
           <form action="#">
             <label htmlFor="footItem">Enter Food Item</label>
             <input name="foodItem" type="text" placeholder="ex. Steak Burrito" onChange={(e) => this.props.handleItemInput(e)}/>
+            <div className="center-align row">
+              <button type="button" className="waves-effect waves-light btn buttonColor" onClick={() => this.handleClick()}>Calculate</button>
+            </div>
           </form>
-          <button className="waves-effect waves-light btn" onClick={() => this.handleClick()}>Calculate</button>
         </div>
       </div>
     )

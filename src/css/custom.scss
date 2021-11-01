@@ -1,9 +1,69 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Advent+Pro:wght@700&family=Exo+2:ital,wght@1,700&family=Righteous&display=swap');
 body{
     background-color: rgb(248, 248, 248);
 }
+
+.container {
+    max-width: 500px !important;
+  }
 .card { 
     border-radius : 5px; 
+}
+.poppinsFont{
+    font-family: 'Poppins';
+}
+.adventProFont{
+    font-family: 'Advent Pro';
+}
+.exo2Font{
+    font-family: 'Righteous';
+}
+.righteousFont{
+    font-family: 'Exo 2';
+}
+.redColor{
+    color: #e57373;
+}
+
+.yellowColor{
+    color: #ffd54f;
+}
+
+.greenColor{
+    color: #81c784;
+}
+
+.blueColor{
+    color: #64b5f6 !important;
+}
+.welcomeFontSize{
+    font-size: 2rem;
+}
+//Form Colors
+.buttonColor{ 
+    background-color: #64b5f6 !important; 
+} 
+
+input:focus {
+    border-bottom: 1px solid #64b5f6 !important;
+    -webkit-box-shadow: 0 1px 0 0 #64b5f6 !important;
+    -moz-box-shadow: 0 1px 0 0 #64b5f6 !important;
+    box-shadow: 0 1px 0 0 #64b5f6 !important;
+}
+label.active {
+    color: #64b5f6 !important;
+  }
+
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:before,
+[type="radio"].with-gap:checked + span:after {
+    border: 2px solid #64b5f6 !important;
+}
+
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:after {
+    background-color: #64b5f6 !important;
 }
 
 //Carousel
@@ -55,21 +115,7 @@ body{
     color:#bdbdbd;
 }
 
-.redColor{
-    color: #e57373;
-}
 
-.yellowColor{
-    color: #ffd54f;
-}
-
-.greenColor{
-    color: #81c784;
-}
-
-.blueColor{
-    color: #64b5f6;
-}
 
 .pointer{
     cursor: pointer;

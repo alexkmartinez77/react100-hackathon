@@ -14,11 +14,13 @@ class Welcome extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1>Welcome to F3</h1>
-        <p>Feast - Fast - Fitness</p>
-        <p>This app assists with your weight loss/maintenance goals by tracking food choices and recommending recipes and excercises to stay on track.</p>
+        <h1 className="center-align">Welcome to <span className="adventProFont"><span>F</span><span className="blueColor">3</span></span></h1>
+        <p className="center-align adventProFont welcomeFontSize"><span className="blueColor">Feast</span> - <span className="blueColor">Fast</span> - <span className="blueColor">Fitness</span></p>
+        <p className="poppinsFont">This app assists with your weight loss / maintenance goals by tracking food choices and recommending recipes and excercises to stay on track.</p>
         <p>{this.props.switch.firstTime}</p>
-        <button className="waves-effect waves-light btn" onClick={() => this.handleClick()}>Enter</button>
+        <div className="center-align row">
+          <button className="waves-effect waves-light btn buttonColor" onClick={() => this.handleClick()}>Enter</button>
+        </div>
       </React.Fragment>
     )
   }
