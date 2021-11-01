@@ -6,7 +6,6 @@ constructor(props) {
   super(props);
 
   this.state = {
-    series: [50],
     options: {
       chart: {
         height: 350,
@@ -28,13 +27,13 @@ constructor(props) {
           dataLabels: {
             name: {
               fontSize: '16px',
-              color: undefined,
+              color: '#64b5f6',
               offsetY: 120
             },
             value: {
               offsetY: 76,
               fontSize: '22px',
-              color: undefined,
+              color: '#64b5f6',
               formatter: function (val) {
                 return val + "%";
               }

@@ -51,8 +51,10 @@ class Form extends Component {
               <span>Weight Loss</span>
             </label>
           </div>
+          <div className="center-align row">
+            <button type="button" className="waves-effect waves-light btn buttonColor" onClick={() => this.handleClick()}>Proceed</button>
+          </div>
         </form>
-        <button className="waves-effect waves-light btn" onClick={() => this.handleClick()}>Proceed</button>
       </React.Fragment>
     )
   }
