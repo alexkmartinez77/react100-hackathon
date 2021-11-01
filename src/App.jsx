@@ -34,6 +34,7 @@ class App extends Component {
         needFoodData: false,
         needExerciseData: false,
         showRecipesOption: false,
+        showRecipes: false,
         showCalorieCard: false,
         showCalorieControlPanel: false,
         needCaloriesInLog: false,
@@ -197,6 +198,7 @@ class App extends Component {
 
   retrieveRecipes(){
     let maxCalories = parseFloat(this.state.userCalories.calorieProfile.caloriesRemaining.toFixed(0));
+    console.log(maxCalories);
     axios({method: 'get', url: `/recipes/${maxCalories}`})
     .then((result) => {
       this.setState({
@@ -206,19 +208,12 @@ class App extends Component {
     .catch((error) => {console.error(error);res.send('An error occured.');})
   }
 
-  componentDidUpdate() {
-
-    let collapsible = document.querySelectorAll(".collapsible");
-
-    M.Collapsible.init(collapsible, {});
-  }
-
   render() {
 
     let chartIntro, caloriesIn, caloriesOut, foodItem, exerciseItem, caloriesInLog, caloriesOutLog, recipesOption, recipes, calorieCard, calorieControlPanel;
 
     if(this.state.switch.needToIntroduceChart) {
-      chartIntro = <ChartIntro switch={this.state.switch} closePage={this.closePage} goals={this.state.userProfile.goals} caloricGoals={this.state.userCalories.calorieProfile.caloricGoals}/>
+      chartIntro = <ChartIntro switch={this.state.switch} closePage={this.closePage} goals={this.state.userProfile.goals} calorieProfile={this.state.userCalories.calorieProfile}/>
     }
     if(this.state.switch.showCalorieCard) {
       calorieCard = <CalorieCard userCalories={this.state.userCalories}/>
@@ -238,19 +233,17 @@ class App extends Component {
     if(this.state.switch.needExerciseData) {
       exerciseItem = <DisplayExerciseItemStats switch={this.state.switch} closePage={this.closePage} caloriesOutItem={this.state.userCalories.caloriesOut.item} logCaloriesOut={this.logCaloriesOut}/>;
     }
-    if((this.state.userCalories.calorieProfile.caloriesRemaining <= 700) && (this.state.userCalories.calorieProfile.caloriesRemaining > 100) && this.state.switch.showRecipesOption){
-      recipesOption = <RecipesOption switch={this.state.switch} closePage={this.closePage} retrieveRecipes={this.retrieveRecipes} caloriesRemaining={this.state.userCalories.calorieProfile.caloriesRemaining}/>
-    }
     if((this.state.userCalories.caloriesIn.array.length > 0) && this.state.switch.needCaloriesInLog){
       caloriesInLog = <CaloriesInLog switch={this.state.switch} closePage={this.closePage} log={this.state.userCalories.caloriesIn.array}/>
     }
-    
     if((this.state.userCalories.caloriesOut.array.length > 0) && this.state.switch.needCaloriesOutLog){
       caloriesOutLog = <CaloriesOutLog switch={this.state.switch} closePage={this.closePage} log={this.state.userCalories.caloriesOut.array}/>
     }
-
-    if(this.state.recipes.length > 0){
-        recipes = <Recipes recipeData={this.state.recipes}/>
+    if(this.state.switch.showRecipesOption){
+      recipesOption = <RecipesOption switch={this.state.switch} closePage={this.closePage} retrieveRecipes={this.retrieveRecipes} caloriesRemaining={this.state.userCalories.calorieProfile.caloriesRemaining}/>
+    }
+    if((this.state.recipes.length > 0) && this.state.switch.showRecipes){
+        recipes = <Recipes switch={this.state.switch} closePage={this.closePage} recipeData={this.state.recipes}/>
     }
     
     return (
@@ -281,27 +274,9 @@ class App extends Component {
             {exerciseItem}
             {caloriesInLog}
             {caloriesOutLog}
+            {recipesOption}
+            {recipes}
           </div>
-        </div>
-        <div className="row">
-          <div className="col s6">
-            <div className="row">
-              {/*caloriesIn*/}
-              {/*foodItem*/}
-              {/*caloriesInLog*/}
-            </div>
-          </div>
-          <div className="col s6">
-            <div className="row">
-              {/*caloriesOut*/}
-              {/*exerciseItem*/}
-              {/*caloriesOutLog*/}
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          {recipesOption}
-          {recipes}
         </div>
       </div>
     );

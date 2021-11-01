@@ -35,8 +35,12 @@ body{
 }
 
 .blueColor{
-    color: #64b5f6 !important;
+    color: #64b5f6;
 }
+.greyColor{
+    color: #bdbdbd;
+}
+
 .welcomeFontSize{
     font-size: 2rem;
 }
@@ -66,6 +70,10 @@ label.active {
     background-color: #64b5f6 !important;
 }
 
+.radioPadding {
+    padding-left: 25px !important;
+    padding-right: 10px !important;
+}
 //Carousel
 .carousel { 
     height: 425px;
@@ -89,40 +97,41 @@ label.active {
     font-weight: bold;
 }
 
-.matchColPadding{
+.matchColPadding {
     padding-left: .75rem;
     padding-right: .75rem;
 }
-.nutritionLabelPadding{
+.nutritionLabelPadding {
     padding-top: .1rem !important;
     padding-bottom: .1rem !important;
 }
 
 //Calories Card
-.caloriesTitle{
+.caloriesTitle {
     font-size: 1.5rem;
     font-family: 'Poppins';
 }
 
-.caloriesData{
+.caloriesData {
     font-size: 1.1rem;
     font-family: 'Poppins';
 }
 
-.caloriesLabel{
+.caloriesLabel {
     font-size: 1.1rem;
     font-family: 'Poppins';
     color:#bdbdbd;
 }
 
-
-
-.pointer{
+.pointer {
     cursor: pointer;
 }
 //Log
-.collection-item{
+.collection-item {
     padding: 0px 5px !important;
 }
 
+.removeRowMargin {
+    margin-bottom: 0px;
+}
 

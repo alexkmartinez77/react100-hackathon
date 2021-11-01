@@ -8,15 +8,18 @@ class RecipesOption extends Component {
 
   handleClick(){
     let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
-    switchCopy.showRecipesOption = !switchCopy.showRecipesOption;
+    switchCopy.showRecipesOption = false;
+    switchCopy.showRecipes = true;
     this.props.closePage(switchCopy);
     this.props.retrieveRecipes();
   }
   render() {
     return (
       <React.Fragment>
-        <p>You have {this.props.caloriesRemaining} calories remaining. Would you like to see a list of recipes for foods that fall within this calorie range?</p>
-        <button className="waves-effect waves-light btn" onClick={() => this.handleClick()}>Retrieve Recipes</button>
+        <p>You have <span className="blueColor">{this.props.caloriesRemaining}</span> calories remaining. Would you like to see a list of recipes for foods that fall within this calorie range?</p>
+        <div className="center-align">
+          <button className="waves-effect waves-light btn buttonColor" onClick={() => this.handleClick()}>Retrieve Recipes</button>
+        </div>
       </React.Fragment>
     )
   }
