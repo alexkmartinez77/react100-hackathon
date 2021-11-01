@@ -20,39 +20,38 @@ class Form extends Component {
         <h5>Tell us about yourself.</h5>
         <form action="#">
           <div onChange={(e) => this.props.handleInput(e)}>
+            <span className="poppinsFont">Gender: </span>
             <label>
               <input className="with-gap" name="gender" value="male" type="radio" />
-              <span>Male</span>
+              <span className="radioPadding poppinsFont">Male</span>
             </label>
             <label>
               <input className="with-gap" name="gender" value="female" type="radio" />
-              <span>Female</span>
+              <span className="radioPadding poppinsFont">Female</span>
             </label>
           </div>
-
-          <label htmlFor="age">Age</label>
-          <input name="age" type="number" onChange={(e) => this.props.handleInput(e)}/>
-
-          <label htmlFor="weight">Weight</label>
-          <input name="weight" type="number" onChange={(e) => this.props.handleInput(e)}/>
-
-          <label htmlFor="feet">Feet</label>
-          <input name="feet" type="number" onChange={(e) => this.props.handleInput(e)}/>
-          <label htmlFor="Inches">Inches</label>
-          <input name="inches" type="number" onChange={(e) => this.props.handleInput(e)}/>
-
+          <label className="poppinsFont" htmlFor="age">Age</label>
+          <input className="poppinsFont" name="age" type="number" onChange={(e) => this.props.handleInput(e)}/>
+          <label className="poppinsFont" htmlFor="weight">Weight</label>
+          <input className="poppinsFont" name="weight" type="number" onChange={(e) => this.props.handleInput(e)}/>
+          <label className="poppinsFont" htmlFor="feet">Height: Feet</label>
+          <input className="poppinsFont" name="feet" type="number" onChange={(e) => this.props.handleInput(e)}/>
+          <label className="poppinsFont" htmlFor="Inches">Height: Inches</label>
+          <input className="poppinsFont" name="inches" type="number" onChange={(e) => this.props.handleInput(e)}/>
           <div onChange={(e) => this.props.handleInput(e)}>
+            <span className="poppinsFont">Goals:</span>
             <label>
               <input className="with-gap" name="goals" value="maintenance" type="radio" />
-              <span>Maintenance</span>
+              <span className="radioPadding poppinsFont">Maintenance</span>
             </label>
             <label>
               <input className="with-gap" name="goals" value="weight loss" type="radio" />
-              <span>Weight Loss</span>
+              <span className="radioPadding poppinsFont">Weight Loss</span>
             </label>
           </div>
+          <br></br>
           <div className="center-align row">
-            <button type="button" className="waves-effect waves-light btn buttonColor" onClick={() => this.handleClick()}>Proceed</button>
+              <button type="button" className="waves-effect waves-light btn buttonColor" onClick={() => this.handleClick()}>Proceed</button>
           </div>
         </form>
       </React.Fragment>
