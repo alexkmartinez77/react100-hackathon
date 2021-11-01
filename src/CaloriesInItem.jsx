@@ -8,7 +8,7 @@ class CaloriesInItem extends Component {
     return (
       <li className="collection-item">
           <span className="redColor caloriesData">{name} </span>
-          <span className="caloriesData"> {calories} cal</span>
+          <span className="caloriesData right"> {calories} cal</span>
       </li>
     )
   }
