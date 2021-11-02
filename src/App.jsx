@@ -267,7 +267,7 @@ class App extends Component {
             {caloriesOut}
           </div>
         </div>
-        <div className="row">
+        <div className="row removeRowMargin">
           <div className="col s12">
             {foodItem}
             {exerciseItem}

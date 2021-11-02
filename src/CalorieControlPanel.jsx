@@ -47,35 +47,66 @@ class CalorieControlPanel extends Component {
 
   render() {
     return (
-      <div className="row">
-          <div className="col s4 center-align">
-            <div className="row">
-              <div className="col s4 offset-s2">
-                <span className="material-icons redColor pointer" onClick={() => this.handleCaloriesInPanel()}>playlist_add</span>
-              </div>
-              <div className="col s4">
-                <span className="material-icons redColor pointer" onClick={() => this.handleCaloriesInLog()}>manage_search</span>
-              </div>
-            </div>
-          </div>
-          <div className="col s4 center-align">
-            <div className="row">
-              <div className="col s12">
-                <span className="material-icons yellowColor pointer" onClick={() => this.handleRecipesOption()}>manage_search</span>
+      <React.Fragment>
+        <div className="row removeRowMargin">
+            <div className="col s4 center-align">
+              <div className="row removeRowMargin">
+                <div className="col s4 offset-s2">
+                  <span className="material-icons redColor pointer" onClick={() => this.handleCaloriesInPanel()}>playlist_add</span>
+                </div>
+                <div className="col s4">
+                  <span className="material-icons redColor pointer" onClick={() => this.handleCaloriesInLog()}>manage_search</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="col s4 center-align">
-            <div className="row">
-              <div className="col s4 offset-s2">
-                <span className="material-icons greenColor pointer" onClick={() => this.handleCaloriesOutPanel()}>playlist_add</span>
+            <div className="col s4 center-align">
+              <div className="row removeRowMargin">
+                <div className="col s12">
+                  <span className="material-icons yellowColor pointer" onClick={() => this.handleRecipesOption()}>manage_search</span>
+                </div>
               </div>
-              <div className="col s4">
-                <span className="material-icons greenColor pointer" onClick={() => this.handleCaloriesOutLog()}>manage_search</span>
-              </div>
+            </div>
+            <div className="col s4 center-align">
+              <div className="row removeRowMargin">
+                <div className="col s4 offset-s2">
+                  <span className="material-icons greenColor pointer" onClick={() => this.handleCaloriesOutPanel()}>playlist_add</span>
+                </div>
+                <div className="col s4">
+                  <span className="material-icons greenColor pointer" onClick={() => this.handleCaloriesOutLog()}>manage_search</span>
+                </div>
+            </div>
           </div>
         </div>
-      </div>
+        <div className="row">
+            <div className="col s4 center-align">
+              <div className="row">
+                <div className="col s4 offset-s2">
+                  <span className="redColor poppinsFont cpLabelFont">Add</span>
+                </div>
+                <div className="col s4">
+                  <span className="redColor poppinsFont cpLabelFont">View</span>
+                </div>
+              </div>
+            </div>
+            <div className="col s4 center-align">
+              <div className="row">
+                <div className="col s12">
+                  <span className="yellowColor poppinsFont cpLabelFont">Recipes</span>
+                </div>
+              </div>
+            </div>
+            <div className="col s4 center-align">
+              <div className="row">
+                <div className="col s4 offset-s2">
+                  <span className="greenColor poppinsFont cpLabelFont">Add</span>
+                </div>
+                <div className="col s4">
+                  <span className="greenColor poppinsFont cpLabelFont">View</span>
+                </div>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
     )
   }
 }
