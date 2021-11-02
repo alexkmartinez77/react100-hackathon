@@ -64,7 +64,6 @@ class Form extends Component {
           </div>
           <br></br>
           <div className="center-align row">
-            {/*<input type="submit" value="Proceed"></input>*/}
             <button type="submit" name="action" className="waves-effect waves-light btn buttonColor">Proceed</button>
           </div>
         </form>

@@ -198,7 +198,6 @@ class App extends Component {
 
   retrieveRecipes(){
     let maxCalories = parseFloat(this.state.userCalories.calorieProfile.caloriesRemaining.toFixed(0));
-    console.log(maxCalories);
     axios({method: 'get', url: `/recipes/${maxCalories}`})
     .then((result) => {
       this.setState({
