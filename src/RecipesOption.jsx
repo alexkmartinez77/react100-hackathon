@@ -4,6 +4,7 @@ class RecipesOption extends Component {
   constructor(props) {
     super(props);
     this.handleCloseRecipesOption = this.handleCloseRecipesOption.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleCloseRecipesOption(){
@@ -11,8 +12,16 @@ class RecipesOption extends Component {
     switchCopy.showRecipesOption = false;
     switchCopy.showCalorieControlPanel = true;
     this.props.closePage(switchCopy);
+  }
+
+  handleClick(){
+    let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
+    switchCopy.showRecipesOption = false;
+    switchCopy.showRecipes = true;
+    this.props.closePage(switchCopy);
     this.props.retrieveRecipes();
   }
+
   render() {
     return (
       <React.Fragment>
