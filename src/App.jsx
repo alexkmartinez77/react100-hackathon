@@ -41,12 +41,12 @@ class App extends Component {
         needCaloriesOutLog: false,
       },
       userProfile: {
-        age: 43,
-        feet: 6,
-        inches: 3,
-        weight: 200,
-        gender: 'male',
-        goals: 'maintenance',
+        age: 0,
+        feet: 0,
+        inches: 0,
+        weight: 0,
+        gender: '',
+        goals: '',
       },
       userCalories:{
         calorieProfile:{

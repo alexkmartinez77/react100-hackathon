@@ -3,10 +3,11 @@ import React, {Component} from "react";
 class Form extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleClick(){
+  handleSubmit(event){
+    event.preventDefault();
     let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
     switchCopy.needInfo = false;
     switchCopy.needToIntroduceChart = true;
@@ -18,11 +19,11 @@ class Form extends Component {
     return (
       <React.Fragment>
         <h5>Tell us about yourself.</h5>
-        <form action="#">
+        <form onSubmit={this.handleSubmit}>
           <div onChange={(e) => this.props.handleInput(e)}>
             <span className="poppinsFont">Gender: </span>
             <label>
-              <input className="with-gap" name="gender" value="male" type="radio" />
+              <input className="with-gap" name="gender" value="male" type="radio" required/>
               <span className="radioPadding poppinsFont">Male</span>
             </label>
             <label>
@@ -30,18 +31,30 @@ class Form extends Component {
               <span className="radioPadding poppinsFont">Female</span>
             </label>
           </div>
-          <label className="poppinsFont" htmlFor="age">Age</label>
-          <input className="poppinsFont" name="age" type="number" onChange={(e) => this.props.handleInput(e)}/>
-          <label className="poppinsFont" htmlFor="weight">Weight</label>
-          <input className="poppinsFont" name="weight" type="number" onChange={(e) => this.props.handleInput(e)}/>
-          <label className="poppinsFont" htmlFor="feet">Height: Feet</label>
-          <input className="poppinsFont" name="feet" type="number" onChange={(e) => this.props.handleInput(e)}/>
-          <label className="poppinsFont" htmlFor="Inches">Height: Inches</label>
-          <input className="poppinsFont" name="inches" type="number" onChange={(e) => this.props.handleInput(e)}/>
+          <div className="input-field col s12">
+            <input id="age" className="validate" name="age" type="number" data-length="2" min="1" onChange={(e) => this.props.handleInput(e)} required/>
+            <label className="poppinsFont" htmlFor="age">Age</label>
+            <span className="helper-text" data-error="wrong" data-success="right"></span>
+          </div>
+          <div className="input-field col s12">
+            <input id="weight" className="validate" name="weight" type="number" data-length="3" min="1" step="1" onChange={(e) => this.props.handleInput(e)} required/>
+            <label className="poppinsFont" htmlFor="weight">Weight</label>
+            <span className="helper-text" data-error="wrong" data-success="right"></span>
+          </div>
+          <div className="input-field col s12">
+            <input id="feet" className="validate" name="feet" type="number" data-length="2" min="1" step="1" onChange={(e) => this.props.handleInput(e)} required/>
+            <label className="poppinsFont" htmlFor="feet">Height: Feet</label>
+            <span className="helper-text" data-error="wrong" data-success="right"></span>
+          </div>
+          <div className="input-field col s12">
+            <input id="inches" className="validate" name="inches" type="number" data-length="2" min="0" step="1" onChange={(e) => this.props.handleInput(e)} required/>
+            <label className="poppinsFont" htmlFor="inches">Height: Inches</label>
+            <span className="helper-text" data-error="wrong" data-success="right"></span>
+          </div>
           <div onChange={(e) => this.props.handleInput(e)}>
             <span className="poppinsFont">Goals:</span>
             <label>
-              <input className="with-gap" name="goals" value="maintenance" type="radio" />
+              <input className="with-gap" name="goals" value="maintenance" type="radio" required/>
               <span className="radioPadding poppinsFont">Maintenance</span>
             </label>
             <label>
@@ -51,7 +64,8 @@ class Form extends Component {
           </div>
           <br></br>
           <div className="center-align row">
-              <button type="button" className="waves-effect waves-light btn buttonColor" onClick={() => this.handleClick()}>Proceed</button>
+            {/*<input type="submit" value="Proceed"></input>*/}
+            <button type="submit" name="action" className="waves-effect waves-light btn buttonColor">Proceed</button>
           </div>
         </form>
       </React.Fragment>
