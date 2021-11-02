@@ -3,10 +3,11 @@ import React, {Component} from "react";
 class CaloriesIn extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleClick(){
+  handleSubmit(event){
+    event.preventDefault();
     let switchCopy = JSON.parse(JSON.stringify(this.props.switch));
     switchCopy.needExerciseData = true;
     this.props.closePage(switchCopy);
@@ -16,11 +17,11 @@ class CaloriesIn extends Component {
     return (
       <div className="row card">
         <div className="col s12">
-          <form action="#">
+          <form onSubmit={this.handleSubmit}>
             <label htmlFor="exerciseItem">Enter Exercise Activity</label>
-            <input name="exerciseItem" type="text" placeholder="ex. 20 min walking" onChange={(e) => this.props.handleItemInput(e)}/>
+            <input name="exerciseItem" type="text" placeholder="ex. 20 min walking" onChange={(e) => this.props.handleItemInput(e)} required/>
             <div className="center-align row">
-              <button type="button" className="waves-effect waves-light btn buttonColor" onClick={() => this.handleClick()}>Calculate</button>
+              <button type="submit" className="waves-effect waves-light btn buttonColor">Calculate</button>
             </div>
           </form>
         </div>
