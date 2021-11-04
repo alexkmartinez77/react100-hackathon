@@ -277,6 +277,8 @@ class App extends Component {
             {recipes}
           </div>
         </div>
+        <div className="center-align" id="edamam-badge" data-color="transparent"></div>
+
       </div>
     );
   }
