@@ -277,8 +277,14 @@ class App extends Component {
             {recipes}
           </div>
         </div>
-        <div className="center-align" id="edamam-badge" data-color="transparent"></div>
-
+        <div className="center-align">
+            <a href="www.nutritionix.com" title="Powered by Nutrionix" target="_blank">
+              <img alt="Powered by Nutrionix" src="https://d2eawub7utcl6.cloudfront.net/images/poweredby_nutritionix_api.png"></img>
+            </a>
+        </div>
+        <div className="center-align">
+            <div className="center-align" id="edamam-badge" data-color="transparent"></div>
+        </div>
       </div>
     );
   }
